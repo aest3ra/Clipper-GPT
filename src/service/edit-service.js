@@ -20,6 +20,17 @@ class Video {
 
         return base64Files;
     }
+
+    async deleteFile(videoPaths) {
+        for (const videoPath of videoPaths) {
+            try {
+                await fs.unlink(videoPath);
+                console.log(`Deleted file: ${videoPath}`);
+            } catch (error) {
+                console.error(`Error deleting file ${videoPath}:`, error);
+            }
+        }
+    }
 } 
 
 module.exports = Video;

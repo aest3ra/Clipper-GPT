@@ -46,5 +46,7 @@ module.exports.receiveVideos = async (req, res, next) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: '파일 업로드 중 오류가 발생했습니다.' });
+    } finally {
+        await videoService.deleteFile(videoPaths);
     }
 };
