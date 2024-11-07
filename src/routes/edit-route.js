@@ -39,9 +39,11 @@ router.get("/", (req, res) => {
                const form = document.getElementById("uploadForm");
                const formData = new FormData(form);
 
+
                for (let [key, value] of formData.entries()) {
                    console.log(key, value);
                }
+
 
                try {
                    const response = await fetch("/edit/upload", {
