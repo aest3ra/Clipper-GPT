@@ -11,7 +11,7 @@ class Video {
                 const fileData = await fs.readFile(videoPath);
                 const base64Encoded = fileData.toString('base64');
                 
-                const fileName = videoPath.split('/').pop(); // Get the file name from the path
+                const fileName = videoPath.split('/').pop();
                 base64Files[fileName] = base64Encoded;
             } catch (error) {
                 console.error(`Error encoding file ${videoPath}:`, error);
