@@ -31,6 +31,25 @@ class Video {
             }
         }
     }
+
+    async sendFile(email, title, data) {
+        data['email'] = email;
+        data['title'] = title;
+
+        // try {
+        //     const response = await fetch('http://34.28.21.224:8000', {
+        //         method: 'POST',
+        //         body: data,
+        //     });
+    
+        //     if (!response.ok) {
+        //         throw new Error('Network response was not ok');
+        //     }
+    
+        // } catch (error) {
+        //     console.error("Error during fetch:", error);
+        // }
+    }
 } 
 
 module.exports = Video;

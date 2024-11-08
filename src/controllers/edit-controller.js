@@ -38,7 +38,9 @@ module.exports.receiveVideos = async (req, res, next) => {
         }
 
         videoPaths = req.files.map(file => file.path);
-        var encodedVideopaths = await videoService.convert2base64(videoPaths)
+        var encodedVideos = await videoService.convert2base64(videoPaths)
+
+        await videoService.sendFile(email, title, encodedVideos)
     
         res.status(200).json({message: '편집이 시작되었습니다!'});
 
