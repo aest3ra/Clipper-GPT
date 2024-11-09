@@ -2,32 +2,29 @@ version: '3.8'
 
 services:
   express:
-    build:
-      context: .
-      dockerfile: Dockerfile.express
+    build: .
     container_name: express-app
     ports:
-      - "8000:8000"  # Expose port 8000 for internal communication
+      - "8000:8000"
     environment:
       - NODE_ENV=production
+      - PORT=8000
     networks:
       - app-network
     volumes:
-      - static-files:/app/public  # 공유 볼륨 설정
+      - static-files:/app/public
 
   nginx:
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile.nginx
+    build: ./nginx
     container_name: nginx-proxy
     ports:
-      - "80:80"  # Expose port 80 for external access
+      - "80:80"
     depends_on:
       - express
     networks:
       - app-network
     volumes:
-      - static-files:/usr/share/nginx/html  # NGINX에서 같은 볼륨을 참조
+      - static-files:/usr/share/nginx/html
 
 networks:
   app-network:
