@@ -12,7 +12,7 @@ services:
     networks:
       - app-network
     volumes:
-      - ./dist:/app/dist
+      - ./public:/app/public
 
   nginx:
     build: ./nginx
@@ -24,7 +24,7 @@ services:
     networks:
       - app-network
     volumes:
-      - ./dist:/usr/share/nginx/html
+      - ./public:/usr/share/nginx/html
 
 networks:
   app-network:

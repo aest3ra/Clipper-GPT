@@ -14,11 +14,6 @@ const editRouter = require("./src/routes/edit-route.js");
 app.use(cors());
 app.use(express.json({limit: '500mb'}));
 
-app.use((req, res, next) => {
-    console.log("test2131123");
-    next();
-});
-
 app.use("/", indexRouter);
 app.use("/admin", adminRouter);
 app.use("/edit", editRouter);
