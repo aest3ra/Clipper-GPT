@@ -20,5 +20,5 @@ app.use("/edit", editRouter);
 
 app.listen(port, (err) => {
     if (err) return console.log(err);
-    console.log(`server running success http://localhost:${String(port)}`);
+    console.log(`server running http://localhost:${String(port)}`);
 })
