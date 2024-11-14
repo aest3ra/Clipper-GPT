@@ -4,7 +4,7 @@ class Video {
     constructor() {}
 
     async convert2base64(videoPaths) {
-        const base64Files = {};
+        const base64Files = [];
 
         for (const videoPath of videoPaths) {
             try {
@@ -12,7 +12,7 @@ class Video {
                 const base64Encoded = fileData.toString('base64');
                 
                 const fileName = videoPath.split('/').pop();
-                base64Files[fileName] = base64Encoded;
+                base64Files.push({ filename: fileName, data: base64Encoded });
             } catch (error) {
                 console.error(`Error encoding file ${videoPath}:`, error);
             }
@@ -32,23 +32,29 @@ class Video {
         }
     }
 
-    async sendFile(email, title, data) {
-        data['email'] = email;
-        data['title'] = title;
+    async sendFile(email, title, files) {
+        const data = {
+            files: files,
+            email: email,
+            title: title,
+        };
 
-        // try {
-        //     const response = await fetch('http://34.28.21.224:8000', {
-        //         method: 'POST',
-        //         body: data,
-        //     });
+        try {
+            const response = await fetch('http://34.64.192.116:8000/files', {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
     
-        //     if (!response.ok) {
-        //         throw new Error('Network response was not ok');
-        //     }
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
     
-        // } catch (error) {
-        //     console.error("Error during fetch:", error);
-        // }
+        } catch (error) {
+            console.error("Error during fetch:", error);
+        }
     }
 } 
 
