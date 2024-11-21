@@ -12,7 +12,7 @@ const adminRouter = require("./src/routes/admin-route.js");
 const editRouter = require("./src/routes/edit-route.js");
 
 app.use(cors());
-app.use(express.json({limit: '500mb'}));
+app.use(express.json({limit: '2000mb'}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use("/", indexRouter);
