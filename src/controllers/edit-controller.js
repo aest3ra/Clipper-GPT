@@ -38,7 +38,9 @@ module.exports.receiveVideos = async (req, res, next) => {
         }
 
         videoPaths = req.files.map(file => file.path);
-        var encodedVideos = await videoService.convert2base64(videoPaths)
+        var encodedVideos = await videoService.readFiles(videoPaths)
+        
+        console.log(encodedVideos)
 
         await videoService.sendFile(email, title, encodedVideos)
     

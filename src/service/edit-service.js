@@ -1,24 +1,48 @@
 const fs = require('fs').promises;
+const FormData = require('form-data');
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
 class Video {
     constructor() {}
 
-    async convert2base64(videoPaths) {
-        const base64Files = [];
-
+    async readFiles(videoPaths) {
+        const filesData = [];
         for (const videoPath of videoPaths) {
             try {
                 const fileData = await fs.readFile(videoPath);
-                const base64Encoded = fileData.toString('base64');
-                
                 const fileName = videoPath.split('/').pop();
-                base64Files.push({ filename: fileName, data: base64Encoded });
+                filesData.push({ filename: fileName, data: fileData });
             } catch (error) {
-                console.error(`Error encoding file ${videoPath}:`, error);
+                console.error(`Error reading file ${videoPath}:`, error);
             }
         }
+        return filesData;
+    }
 
-        return base64Files;
+    async sendFile(email, title, files) {
+        const formData = new FormData();
+        formData.append('email', email);
+        formData.append('title', title);
+
+        for (const file of files) {
+            formData.append('files', file.data, file.filename);
+        }
+
+        try {
+            const response = await fetch('http://34.64.192.116:8000/files', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!response.ok) {
+                const text = await response.text();
+                throw new Error(`Network response was not ok: ${text}`);
+            }
+
+            console.log('Files sent successfully');
+        } catch (error) {
+            console.error("Error during fetch:", error);
+        }
     }
 
     async deleteFile(videoPaths) {
@@ -31,31 +55,6 @@ class Video {
             }
         }
     }
-
-    async sendFile(email, title, files) {
-        const data = {
-            files: files,
-            email: email,
-            title: title,
-        };
-
-        try {
-            const response = await fetch('http://34.64.192.116:8000/files', {
-                method: 'POST',
-                body: JSON.stringify(data),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-    
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-    
-        } catch (error) {
-            console.error("Error during fetch:", error);
-        }
-    }
-} 
+}
 
 module.exports = Video;
