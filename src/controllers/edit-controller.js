@@ -38,11 +38,11 @@ module.exports.receiveVideos = async (req, res, next) => {
         }
 
         videoPaths = req.files.map(file => file.path);
-        var encodedVideos = await videoService.readFiles(videoPaths)
+        var videos = await videoService.readFiles(videoPaths)
         
-        console.log(encodedVideos)
+        console.log(videos)
 
-        await videoService.sendFile(email, title, encodedVideos)
+        videoService.sendFile(email, title, videos)
     
         res.status(200).json({message: '편집이 시작되었습니다!'});
 
