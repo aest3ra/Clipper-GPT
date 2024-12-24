@@ -1,0 +1,132 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1200px;
+    align-items: center;
+    justify-content: center;
+}
+
+.root h1 {
+    font-size: 3rem;
+    font-weight: bold; /* 글씨체를 볼드체로 설정 */
+}
+
+h2 {
+    font-size: 2rem;
+    font-weight: bold; /* 글씨체를 볼드체로 설정 */
+}
+
+.logoImg {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 40px; /* 로고와 콘텐츠 사이의 간격 추가 */
+}
+
+.logoImg img {
+    width: 450px; /* 로고 이미지의 너비 */
+    height: auto; /* 높이는 비율에 맞게 자동 조정 */
+    max-width: 100%; /* 부모 요소 크기를 초과하지 않도록 설정 */
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+p {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.2rem;
+    line-height: 1.3;
+    color: #6b7280;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+
+.start-button {
+    padding: 1rem 2.8rem; /* 좌우 공간을 늘리기 위해 오른쪽과 왼쪽 패딩 값을 조정 */
+    border-radius: 7px;
+    background-color: #2563EB;
+    color: white;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: bold; /* 글씨체를 볼드체로 설정 */
+    cursor: pointer;
+}
+
+.guide-button {
+    padding: 1rem 2.8rem; /* 좌우 공간을 늘리기 위해 오른쪽과 왼쪽 패딩 값을 조정 */
+    border-radius: 7px;
+    background-color: white;
+    color: #6B7280;
+    border: 1px solid #6B7280; /* 테두리 두께와 색상 설정 */
+    font-size: 1.1rem;
+    font-weight: bold; /* 글씨체를 볼드체로 설정 */
+    cursor: pointer;
+}
+
+
+.usage {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    margin-top: 40px; /* 위쪽 간격 추가 */
+}
+
+.step {
+    display: flex;
+    flex-direction: row;
+    width: 100%; /* 단계별 레이아웃 너비 */
+    align-items: center;
+    justify-content: center; /* 전체 중앙 정렬 */
+    gap: 330px; /* 사진과 설명 간 간격 */
+    margin: 100px 0; /* 상하 간격 추가 */
+}
+
+.screen-container {
+    position: relative;
+    width: 450px; /* 사진 크기 조정 */
+    height: auto; /* 높이는 자동 조정 */
+}
+
+.screenImg {
+    width: 100%; /* 사진 부모 요소에 맞춤 */
+    height: auto; /* 비율 유지 */
+    z-index: 2;
+}
+
+.desc {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 설명 가로 중앙 정렬 */
+    justify-content: center; /* 설명 세로 중앙 정렬 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    width: 100%; /* 설명 너비 */
+    gap: 5px; /* 아이콘, 제목, 설명 간 간격 */
+}
+
+.step .icon {
+    width: 25px; /* 아이콘 크기 */
+    height: 25px;
+    margin: 0 auto; /* 아이콘 가로 중앙 정렬 */
+}
+
