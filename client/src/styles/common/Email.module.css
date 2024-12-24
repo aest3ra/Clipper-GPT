@@ -1,0 +1,155 @@
+/* 전체 레이아웃 */
+.root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100vh;
+    max-width: 1200px;
+    padding-top: 50px;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: left; /* 텍스트를 왼쪽 정렬 */
+    width: 100%; /* 부모의 전체 너비를 사용 */
+    margin-bottom: 20px;
+    padding-left: 20px; /* 왼쪽 여백 추가 */
+}
+
+.emailWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.emailInputContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 726px;
+}
+
+.emailInput {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Align icon, input field, and delete button */
+    width: 100%; /* Fixed width for all email input fields */
+    height: 55px;
+    border: 1px solid #F1F1F1;
+    border-radius: 15px;
+    background-color: #fff;
+    padding: 0 1rem;
+    gap: 1rem;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+}
+
+.inputField {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 1.2rem;
+    color: black;
+    background: transparent;
+}
+
+.inputField::placeholder {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #C0C0C0;
+}
+
+.deleteButton {
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 50%;
+    background-color: #F87171;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.deleteButton:hover {
+    background-color: #EF4444;
+    transform: scale(1.1);
+}
+
+/* 공유 버튼 */
+.share {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.shareButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 726px;
+    height: 55px;
+    border-radius: 15px;
+    background-color: #DFECFC;
+    color: #1F2937;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.shareButton:disabled {
+    background-color: #D1D5DB;
+    color: #9CA3AF;
+    cursor: not-allowed;
+}
+
+.shareButton:hover:not(:disabled) {
+    background-color: #D1E9FF;
+    transform: scale(1.02);
+}
+
+/* 네비게이션 버튼 */
+.buttons {
+    margin-top: 20px;
+}
+
+.startButton {
+    padding: 1rem 2.8rem;
+    border-radius: 7px;
+    background-color: #2563EB;
+    color: white;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.startButton:hover {
+    background-color: #1E40AF;
+    transform: scale(1.05);
+}
+
+/* 진행 그래프 */
+.graph {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 80px;
+}

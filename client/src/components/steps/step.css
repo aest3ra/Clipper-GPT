@@ -1,0 +1,51 @@
+/* 전체 진행 바 컨테이너 */
+.progress-container {
+    display: flex;
+    gap: 12px;
+}
+
+/* 스텝 스타일 */
+.progress-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.progress-step .circle {
+    width: 30px; /* 원의 크기 */
+    height: 30px;
+}
+
+.progress-step.completed .circle {
+    width: 25px;
+    height: 25px;
+}
+
+.progress-step .label {
+    font-size: 0.8rem;
+    color: #6B7280; /* 기본 텍스트 색상 */
+    text-align: center;
+    font-weight: 00;
+}
+
+.progress-step.completed .label {
+    color: #2563EB; /* 완료된 상태의 텍스트 색상 */
+    font-weight: bold;
+}
+
+/* 선 스타일 */
+
+.lineContent{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.line {
+    width: 250px; /* 선의 길이 */
+    height: 2px; /* 자동 높이 조정 */
+    margin-bottom: 25px;
+}
+
