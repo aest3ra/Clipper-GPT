@@ -146,6 +146,21 @@
     transform: scale(1.05);
 }
 
+/* 비활성화된 상태 */
+.startButton:disabled {
+    background-color: #D1D5DB; /* 비활성화 배경색 */
+    color: #9CA3AF; /* 비활성화 텍스트 색상 */
+    cursor: not-allowed; /* 커서를 기본 화살표로 변경 */
+    transform: none; /* hover 효과 제거 */
+    box-shadow: none; /* 그림자 제거 */
+    opacity: 0.8; /* 약간 투명하게 설정 */
+}
+
+.startButton:disabled:hover {
+    background-color: #D1D5DB; /* 비활성화 상태에서 hover 색상 유지 */
+}
+
+
 /* 진행 그래프 */
 .graph {
     display: flex;

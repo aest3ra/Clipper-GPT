@@ -3,24 +3,36 @@ import styles from "../../styles/common/Email.module.css";
 import Step1 from "../../components/steps/step1";
 
 export default function GetEmailPage() {
-    const [emailFields, setEmailFields] = useState(["Your email"]); // Initial email field
+    const [emailFields, setEmailFields] = useState([""]);
+    const [isNextDisabled, setIsNextDisabled] = useState(true);
+
+    const handleEmailChange = (value, index) => {
+        const updatedEmails = [...emailFields];
+        updatedEmails[index] = value;
+        setEmailFields(updatedEmails);
+
+        setIsNextDisabled(!updatedEmails.some((email) => email.trim() !== ""));
+    };
 
     const addEmailField = () => {
         if (emailFields.length < 5) {
-            setEmailFields([...emailFields, "Others email"]); // Add a new email field
+            setEmailFields([...emailFields, ""]);
         }
     };
 
     const removeEmailField = (indexToRemove) => {
-        setEmailFields(emailFields.filter((_, index) => index !== indexToRemove)); // Remove specific email field
+        const updatedEmails = emailFields.filter((_, index) => index !== indexToRemove);
+        setEmailFields(updatedEmails);
+        setIsNextDisabled(!updatedEmails.some((email) => email.trim() !== ""));
     };
 
     return (
         <div className={styles.root}>
             <h2 className={styles.title}>Email</h2>
+
             {/* Email Fields Section */}
             <div className={styles.emailWrapper}>
-                {emailFields.map((placeholder, index) => (
+                {emailFields.map((value, index) => (
                     <div key={index} className={styles.emailInputContainer}>
                         <div className={styles.emailInput}>
                             <div className={styles.icon}>
@@ -28,8 +40,10 @@ export default function GetEmailPage() {
                             </div>
                             <input
                                 type="email"
-                                placeholder={placeholder}
+                                placeholder={index === 0 ? "Your email" : "Others email"}
                                 className={styles.inputField}
+                                value={value}
+                                onChange={(e) => handleEmailChange(e.target.value, index)}
                             />
                             {index > 0 && (
                                 <button
@@ -57,12 +71,17 @@ export default function GetEmailPage() {
 
             {/* Navigation Button */}
             <div className={styles.buttons}>
-                <button className={styles.startButton}>다음</button>
+                <button
+                    className={styles.startButton}
+                    disabled={isNextDisabled}
+                >
+                    다음
+                </button>
             </div>
 
             {/* Progress Graph */}
             <div className={styles.graph}>
-              <Step1 />
+                <Step1 />
             </div>
         </div>
     );
