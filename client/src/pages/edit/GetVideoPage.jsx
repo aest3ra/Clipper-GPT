@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom"; 
 import { useHandleRoute } from "../../lib/util";
+import { uploadVideos } from "../../lib/api";
 import styles from "../../styles/common/Video.module.css";
 import Step2 from "../../components/steps/step2";
 import Spinner from "../../components/spinner/Spinner"; 
 
 export default function GetVideoPage() {
-  const baseURL = "http://127.0.0.1:8000";
   const { handleRoute } = useHandleRoute();
   const location = useLocation();
   
@@ -15,7 +15,6 @@ export default function GetVideoPage() {
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [isNextDisabled, setIsNextDisabled] = useState(false);
 
-  // 로딩 상태
   const [isLoading, setIsLoading] = useState(false);
 
   const MAX_TOTAL_SIZE = 2 * 1024 * 1024 * 1024; // 2GB
@@ -74,30 +73,17 @@ export default function GetVideoPage() {
     }
 
     try {
-      // 로딩 시작
       setIsLoading(true);
 
-      const formData = new FormData();
-      formData.append("emails", JSON.stringify(emailFields));
-
-      uploadedFiles.forEach(({ file }) => {
-        formData.append("videos", file);
-      });
-
-      const response = await fetch(baseURL + "/edit/upload", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await uploadVideos(emailFields, uploadedFiles);
 
       if (!response.ok) {
         console.error("업로드 실패", response.statusText);
         alert("업로드 실패");
-        // 실패 시 로딩 해제
         setIsLoading(false);
         return;
       }
 
-      // 성공 시 바로 다음 페이지로 이동 (로딩 해제 전 이동)
       handleRoute("/complete");
 
     } catch (error) {

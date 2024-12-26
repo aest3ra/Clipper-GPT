@@ -34,14 +34,24 @@ export default function MainPage() {
       {/* 버튼 그룹 */}
       <div className="buttons">
         <button className="start-button" onClick={() => handleRoute("/edit1")} >편집 시작</button>
-        <button className="guide-button">사용 방법</button>
+        <button
+            className="guide-button"
+            onClick={() => {
+                const usageSection = document.getElementById("usage");
+                if (usageSection) {
+                usageSection.scrollIntoView({ behavior: "smooth" });
+                }
+            }}
+            >
+            사용 방법
+        </button>
       </div>
 
     {/* ---------------------------------------------------------------   */}
 
       {/* 사용 방법 */}
       <br></br><br></br><br></br><br></br>
-      <h2>사용 방법</h2>
+      <h2 id="usage">사용 방법</h2>
       <div className="usage">
             
             <div className="step">
@@ -105,7 +115,17 @@ export default function MainPage() {
         {/* 버튼 그룹 */}
         <div className="buttons">
         <button className="start-button" onClick={() => handleRoute("/edit1")} >편집 시작</button>
-            <button className="guide-button">사용 방법</button>
+        <button
+            className="guide-button"
+            onClick={() => {
+                const usageSection = document.getElementById("usage");
+                if (usageSection) {
+                usageSection.scrollIntoView({ behavior: "smooth" });
+                }
+            }}
+            >
+            사용 방법
+        </button>
         </div>
 
     {/* ---------------------------------------------------------------   */}

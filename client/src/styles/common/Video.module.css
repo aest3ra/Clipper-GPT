@@ -182,21 +182,22 @@
     margin-top: 100px;
 }
 
+
+
+/* Spinner */
 .loadingOverlay {
-    position: fixed; /* 화면 전체 덮기 */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     
-    /* 반투명 배경 + Blur 효과 */
     background-color: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(3px);
   
-    /* 스피너를 중앙에 위치 */
     display: flex;
     align-items: center;
     justify-content: center;
   
-    z-index: 9999; /* 가장 위에 보이도록 */
+    z-index: 9999;
 }
