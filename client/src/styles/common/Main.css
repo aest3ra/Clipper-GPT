@@ -107,7 +107,7 @@ p {
     width: 100%; /* 단계별 레이아웃 너비 */
     align-items: center;
     justify-content: center; /* 전체 중앙 정렬 */
-    gap: 300px; /* 사진과 설명 간 간격 */
+    gap: 200px; /* 사진과 설명 간 간격 */
     margin: 100px 0; /* 상하 간격 추가 */
 }
 

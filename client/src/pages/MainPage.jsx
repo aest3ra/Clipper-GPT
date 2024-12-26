@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { useHandleRoute } from "../lib/util";
 
 import "../styles/common/Main.css";
