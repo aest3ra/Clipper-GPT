@@ -3,12 +3,8 @@ import { useHandleRoute } from "../lib/util";
 import "../styles/common/Main.css";
 
 export default function MainPage() {
-
+    
     const { handleRoute } = useHandleRoute();
-
-    const handleGoEdit1 = () => {
-        navigate("/edit1");
-    };
 
   return (
     <div className="root">
@@ -21,7 +17,7 @@ export default function MainPage() {
                 <img src="/logoBig.svg" alt="logo" />
             </div>
             
-            <div className="contentDec">
+            <div className="contentDesc">
                 <p>🎥 귀찮은 영상 편집은 그만!</p>
                 <p>📸 여러분은 찍기만 하세요, 편집은 CLIPPER-GPT가 해드릴게요!</p>
                 <p>💡 지금 출시 기념 무료 베타 서비스 중!</p>
@@ -38,7 +34,7 @@ export default function MainPage() {
             onClick={() => {
                 const usageSection = document.getElementById("usage");
                 if (usageSection) {
-                usageSection.scrollIntoView({ behavior: "smooth" });
+                    usageSection.scrollIntoView({ behavior: "smooth" });
                 }
             }}
             >

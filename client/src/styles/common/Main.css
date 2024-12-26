@@ -39,7 +39,12 @@ h2 {
     width: 100%;
     align-items: center;
     justify-content: center;
+  
+    /* 좌우 20px 여백, 상하 0 */
+    padding: 0 20px;
+    box-sizing: border-box;
 }
+
 
 .content .freeDesc {
     text-align: center; /* 텍스트 중앙 정렬 */

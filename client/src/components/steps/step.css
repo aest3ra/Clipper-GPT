@@ -2,6 +2,10 @@
 .progress-container {
     display: flex;
     gap: 12px;
+
+    /* 좌우 여백 (예: 20px씩) */
+    padding: 0 20px;
+    box-sizing: border-box;
 }
 
 /* 스텝 스타일 */
@@ -23,10 +27,13 @@
 }
 
 .progress-step .label {
+    /* 텍스트가 절대 줄바꿈되지 않도록 */
+    white-space: nowrap;
+
     font-size: 0.8rem;
-    color: #6B7280; /* 기본 텍스트 색상 */
+    color: #6B7280; 
     text-align: center;
-    font-weight: 00;
+    font-weight: 400; /* 혹은 normal */
 }
 
 .progress-step.completed .label {
@@ -35,8 +42,7 @@
 }
 
 /* 선 스타일 */
-
-.lineContent{
+.lineContent {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -45,7 +51,13 @@
 
 .line {
     width: 250px; /* 선의 길이 */
-    height: 2px; /* 자동 높이 조정 */
+    height: 2px; 
     margin-bottom: 25px;
 }
 
+/* 반응형: 화면이 좁아지면 선 길이 줄이기 */
+@media (max-width: 600px) {
+    .line {
+        width: 120px; /* 줄어든 선 길이 */
+    }
+}

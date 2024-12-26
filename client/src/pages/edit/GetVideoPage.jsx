@@ -160,6 +160,7 @@ export default function GetVideoPage() {
             >
               + Add Video
             </button>
+            
             <input
               id="fileInput"
               type="file"
