@@ -5,10 +5,16 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+
     width: 100%;
-    height: 100vh;
     max-width: 1200px;
-    padding-top: 50px;
+
+    /* 상단 50px, 좌우 20px 여백 */
+    padding: 50px 20px; 
+    margin: 0 auto; 
+    box-sizing: border-box;
+
+    min-height: 100vh;
 }
 
 .title {
@@ -17,7 +23,6 @@
     text-align: left;
     width: 100%;
     margin-bottom: 20px;
-    padding-left: 20px;
 }
 
 /* Drop Zone */
@@ -26,7 +31,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 726px;
+
+    width: 100%;
+    max-width: 726px;
+
     height: 180px;
     border: 2px dashed #D1D5DB;
     border-radius: 15px;
@@ -71,7 +79,9 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
-    width: 726px;
+
+    width: 100%;
+    max-width: 726px;
     margin-bottom: 30px;
 }
 
@@ -134,7 +144,9 @@
 }
 
 .addVideoButton {
-    width: 726px;
+    width: 100%;
+    max-width: 726px;
+
     height: 55px;
     border-radius: 15px;
     background-color: #DFECFC;
@@ -144,6 +156,7 @@
     border: none;
     cursor: pointer;
     transition: background-color 0.2s ease, transform 0.2s ease;
+    min-width: 400px;
 }
 
 .addVideoButton:hover {
@@ -173,7 +186,6 @@
     transform: scale(1.05);
 }
 
-
 /* Progress Graph */
 .graph {
     display: flex;
@@ -182,9 +194,7 @@
     margin-top: 100px;
 }
 
-
-
-/* Spinner */
+/* Spinner (로딩 오버레이) */
 .loadingOverlay {
     position: fixed;
     top: 0;
@@ -200,4 +210,37 @@
     justify-content: center;
   
     z-index: 9999;
+}
+
+/* =======================================
+   반응형: 768px 이하에서 폰트/크기 조정 (예시)
+   ======================================= */
+@media (max-width: 768px) {
+  
+  .addVideoButton {
+    font-size: 1rem;
+    height: 50px;
+  }
+
+  .videoInput {
+    height: 150px;
+  }
+  .dropIcon {
+    width: 40px;
+    height: 40px;
+  }
+  .fileList {
+    gap: 10px;
+  }
+  .fileItem {
+    padding: 8px;
+  }
+
+  .startButton {
+    font-size: 1.1rem; /* 살짝만 줄이기 or 유지 */
+  }
+
+  .graph {
+    margin-top: 60px;
+  }
 }
