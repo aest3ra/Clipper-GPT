@@ -28,9 +28,9 @@ module.exports.receiveVideos = async (req, res, next) => {
     var videoPaths = []
 
     try {
-        const { email, title } = req.body;
+        const emails = req.body.emails;
 
-        if (!email || !title) {
+        if (!emails) {
             return res.status(400).json({ message: '편집된 영상의 제목과 영상을 받을 이메일이 필요합니다.' });
         }
         if (!req.files || req.files.length === 0) {
@@ -40,9 +40,7 @@ module.exports.receiveVideos = async (req, res, next) => {
         videoPaths = req.files.map(file => file.path);
         var videos = await videoService.readFiles(videoPaths)
         
-        console.log(videos)
-
-        videoService.sendFile(email, title, videos)
+        videoService.sendFile(emails, videos)
     
         res.status(200).json({message: '편집이 시작되었습니다!'});
 

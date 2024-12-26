@@ -19,30 +19,32 @@ class Video {
         return filesData;
     }
 
-    async sendFile(email, title, files) {
+    async sendFile(emails, videos) {
         const formData = new FormData();
-        formData.append('email', email);
-        formData.append('title', title);
+        formData.append('emails', emails);
+      
+        videos.forEach((video) => {
+          formData.append('videos', video.data, { filename: video.filename });
+        });
+      
+        console.log("formData emails : ", formData._streams);
+    
 
-        for (const file of files) {
-            formData.append('files', file.data, file.filename);
-        }
+        // try {
+        //     const response = await fetch('http://34.64.192.116:8000/files', {
+        //         method: 'POST',
+        //         body: formData
+        //     });
 
-        try {
-            const response = await fetch('http://34.64.192.116:8000/files', {
-                method: 'POST',
-                body: formData
-            });
+        //     if (!response.ok) {
+        //         const text = await response.text();
+        //         throw new Error(`Network response was not ok: ${text}`);
+        //     }
 
-            if (!response.ok) {
-                const text = await response.text();
-                throw new Error(`Network response was not ok: ${text}`);
-            }
-
-            console.log('Files sent successfully');
-        } catch (error) {
-            console.error("Error during fetch:", error);
-        }
+        //     console.log('Files sent successfully');
+        // } catch (error) {
+        //     console.error("Error during fetch:", error);
+        // }
     }
 
     async deleteFile(videoPaths) {
