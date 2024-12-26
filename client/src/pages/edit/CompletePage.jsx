@@ -1,13 +1,10 @@
-import { useNavigate } from "react-router-dom";
 import styles from "../../styles/common/Complete.module.css";
 import Step3 from "../../components/steps/step3";
+import { useHandleRoute } from "../../lib/util";
 
 export default function CompletePage() {
-    const navigate = useNavigate();
 
-    const handleGoHome = () => {
-        navigate("/"); // 홈으로 이동
-    };
+    const { handleRoute } = useHandleRoute();
 
     return (
         <div className={styles.root}>
@@ -19,7 +16,7 @@ export default function CompletePage() {
 
             {/* Home Button */}
             <div className={styles.buttons}>
-                <button className={styles.homeButton} onClick={handleGoHome}>
+                <button className={styles.homeButton} onClick={() => handleRoute("/")}>
                     홈으로 돌아가기
                 </button>
             </div>

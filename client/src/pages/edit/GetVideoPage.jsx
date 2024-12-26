@@ -1,12 +1,16 @@
 import { useState } from "react";
+import { useHandleRoute } from "../../lib/util";
 import styles from "../../styles/common/Video.module.css";
 import Step2 from "../../components/steps/step2";
 
 export default function GetVideoPage() {
+
+    const { handleRoute } = useHandleRoute();
+
     const [uploadedFiles, setUploadedFiles] = useState([]);
     const [isNextDisabled, setIsNextDisabled] = useState(false);
 
-    const MAX_TOTAL_SIZE = 2 * 1024 * 1024 * 1024; // 2GB in bytes
+    const MAX_TOTAL_SIZE = 2 * 1024 * 1024 * 1024;
 
     const calculateTotalSize = (files) => {
         return files.reduce((total, file) => total + file.size, 0);
@@ -124,6 +128,7 @@ export default function GetVideoPage() {
                     <button
                         className={styles.startButton}
                         disabled={isNextDisabled}
+                        onClick={() => handleRoute("/complete")}
                     >
                         다음
                     </button>

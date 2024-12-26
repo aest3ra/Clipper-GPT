@@ -1,8 +1,12 @@
 import { useState } from "react";
 import styles from "../../styles/common/Email.module.css";
 import Step1 from "../../components/steps/step1";
+import { useHandleRoute } from "../../lib/util";
 
 export default function GetEmailPage() {
+
+    const { handleRoute } = useHandleRoute();
+
     const [emailFields, setEmailFields] = useState([""]);
     const [isNextDisabled, setIsNextDisabled] = useState(true);
 
@@ -74,6 +78,7 @@ export default function GetEmailPage() {
                 <button
                     className={styles.startButton}
                     disabled={isNextDisabled}
+                    onClick={() => handleRoute("/edit2")}
                 >
                     다음
                 </button>

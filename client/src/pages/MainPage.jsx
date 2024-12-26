@@ -1,7 +1,16 @@
 import { useEffect, useState } from "react";
+import { useHandleRoute } from "../lib/util";
+
 import "../styles/common/Main.css";
 
 export default function MainPage() {
+
+    const { handleRoute } = useHandleRoute();
+
+    const handleGoEdit1 = () => {
+        navigate("/edit1");
+    };
+
   return (
     <div className="root">
 
@@ -24,7 +33,7 @@ export default function MainPage() {
 
       {/* 버튼 그룹 */}
       <div className="buttons">
-        <button className="start-button">편집 시작</button>
+        <button className="start-button" onClick={() => handleRoute("/edit1")} >편집 시작</button>
         <button className="guide-button">사용 방법</button>
       </div>
 
@@ -95,7 +104,7 @@ export default function MainPage() {
         </div>
         {/* 버튼 그룹 */}
         <div className="buttons">
-            <button className="start-button">편집 시작</button>
+        <button className="start-button" onClick={() => handleRoute("/edit1")} >편집 시작</button>
             <button className="guide-button">사용 방법</button>
         </div>
 
