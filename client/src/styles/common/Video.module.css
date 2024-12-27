@@ -23,6 +23,7 @@
     text-align: left;
     width: 100%;
     margin-bottom: 20px;
+    margin-left: 10px;
 }
 
 /* Drop Zone */
@@ -83,12 +84,8 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
-
-    /* 2) 파일목록도 동일한 최대폭 */
     width: 100%;
-    max-width: 600px;
-
-    margin-bottom: 30px;
+    max-width: 700px;
 }
 
 .fileItem {
@@ -96,14 +93,13 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    border: 1px solid #D1D5DB;
+    border: 1px solid #CACACA;
     border-radius: 10px;
-    background-color: #F9FAFB;
 }
 
 .fileDetails {
     display: flex;
-    gap: 30px;
+    gap: 15px;
     align-items: center;
 }
 
@@ -111,6 +107,18 @@
     width: 30px;
     height: 30px;
     margin-left: 10px;
+    margin-bottom: 70px;
+}
+
+.trashIcon {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 50px;
+    margin-right: 10px;
+}
+
+.trashIcon:hover {
+    transform: scale(1.1);
 }
 
 .fileName {
@@ -126,36 +134,15 @@
     text-decoration: underline;
 }
 
-.deleteButton {
-    width: 30px;
-    height: 30px;
-    border: none;
-    border-radius: 50%;
-    background-color: #F87171;
-    color: white;
-    font-size: 1rem;
-    cursor: pointer;
-    margin-right: 10px;
-    transition: background-color 0.2s ease, transform 0.2s ease;
-}
 
-.deleteButton:hover {
-    background-color: #EF4444;
-    transform: scale(1.1);
-}
 
-/* Add Video Button 래퍼 */
 .addButton {
-    /* 3) 여기서도 동일 최대폭 + 100%  */
     width: 100%;
-    max-width: 600px;
+    max-width: 700px;
     margin-top: 20px;
-
-    /* Add Video 버튼만 하나 위치시키므로 flex-row 등은 필요없음 */
 }
 
 .addVideoButton {
-    /* 4) 버튼 폭을 부모(.addButton) 전체로 */
     width: 100%;
     height: 55px;
     border-radius: 15px;
@@ -173,7 +160,6 @@
     transform: scale(1.05);
 }
 
-/* 네비게이션 버튼 */
 .buttons {
     margin-top: 50px;
 }

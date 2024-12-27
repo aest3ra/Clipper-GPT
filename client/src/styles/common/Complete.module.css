@@ -18,7 +18,7 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
-    margin-top: -30px; /* 섹션 전체를 위로 이동 */
+    margin-top: -130px; /* 섹션 전체를 위로 이동 */
 }
 
 .checkIcon {
@@ -62,5 +62,5 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 200px;
+    margin-top: 50px;
 }

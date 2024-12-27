@@ -9,46 +9,74 @@ import Spinner from "../../components/spinner/Spinner";
 export default function GetVideoPage() {
   const { handleRoute } = useHandleRoute();
   const location = useLocation();
-  
+
   const emailFields = location.state?.emailFields || [];
 
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [isNextDisabled, setIsNextDisabled] = useState(false);
-
   const [isLoading, setIsLoading] = useState(false);
 
-  const MAX_TOTAL_SIZE = 2 * 1024 * 1024 * 1024; // 2GB
+  const MAX_TOTAL_SIZE = 2 * 1024 * 1024 * 1024;
+  const MAX_VIDEO_COUNT = 5;
+  const MAX_TOTAL_DURATION = 30 * 60;
 
   const calculateTotalSize = (files) => {
     return files.reduce((total, file) => total + file.file.size, 0);
   };
 
-  const handleFileSelect = (event) => {
-    const files = Array.from(event.target.files);
-    const validFiles = files.filter((file) => file.type.startsWith("video/"));
-    updateFileList(validFiles);
+  const calculateTotalDuration = async (files) => {
+    const durationPromises = files.map(
+      (file) =>
+        new Promise((resolve) => {
+          const videoElement = document.createElement("video");
+          videoElement.preload = "metadata";
+
+          videoElement.onloadedmetadata = () => {
+            resolve(videoElement.duration);
+          };
+
+          videoElement.src = URL.createObjectURL(file.file);
+        })
+    );
+
+    const durations = await Promise.all(durationPromises);
+    return durations.reduce((total, duration) => total + duration, 0);
   };
 
-  const handleDrop = (event) => {
+  const handleFileSelect = async (event) => {
+    const files = Array.from(event.target.files);
+    const validFiles = files.filter((file) => file.type.startsWith("video/"));
+    await updateFileList(validFiles);
+  };
+
+  const handleDrop = async (event) => {
     event.preventDefault();
     const files = Array.from(event.dataTransfer.files);
     const validFiles = files.filter((file) => file.type.startsWith("video/"));
-    updateFileList(validFiles);
+    await updateFileList(validFiles);
   };
 
-  const updateFileList = (files) => {
+  const updateFileList = async (files) => {
     const newFiles = files.map((file) => ({
-      file, // 실제 원본 File 객체
+      file,
       name: file.name,
       size: file.size,
-      displaySize: (file.size / 1024).toFixed(2) + " KB",
+      displaySize: (file.size / 1024).toFixed(0) + " KB",
     }));
 
     const updatedFiles = [...uploadedFiles, ...newFiles];
+    if (updatedFiles.length > MAX_VIDEO_COUNT) {
+      alert("동영상은 최대 5개만 업로드할 수 있습니다.");
+      return;
+    }
+
     const totalSize = calculateTotalSize(updatedFiles);
+    const totalDuration = await calculateTotalDuration(updatedFiles);
 
     if (totalSize > MAX_TOTAL_SIZE) {
-      alert("동영상은 총 2GB만 가능합니다");
+      alert("동영상은 총 2GB만 가능합니다.");
+    } else if (totalDuration > MAX_TOTAL_DURATION) {
+      alert("동영상은 최대 5개이고 30분을 초과할 수 없습니다.");
     } else {
       setUploadedFiles(updatedFiles);
       setIsNextDisabled(false);
@@ -85,7 +113,6 @@ export default function GetVideoPage() {
       }
 
       handleRoute("/complete");
-
     } catch (error) {
       console.error("업로드 에러", error);
       alert("업로드 중 오류가 발생했습니다.");
@@ -95,7 +122,6 @@ export default function GetVideoPage() {
 
   return (
     <div className={styles.root}>
-      {/* 로딩 오버레이 (isLoading이면 오버레이+스피너) */}
       {isLoading && (
         <div className={styles.loadingOverlay}>
           <Spinner />
@@ -115,7 +141,7 @@ export default function GetVideoPage() {
             <p>
               <span className={styles.uploadLink}>Click to Upload</span> or drag and drop
             </p>
-            <p className={styles.fileSize}>Max. File size: 3GB per file</p>
+            <p className={styles.fileSize}>Max. File size: 2GB per file</p>
           </label>
           <input
             id="fileInput"
@@ -133,7 +159,7 @@ export default function GetVideoPage() {
               <div key={index} className={styles.fileItem}>
                 <div className={styles.fileDetails}>
                   <img
-                    src="/videoIcon.svg"
+                    src="/video.svg"
                     alt="Video Icon"
                     className={styles.fileIcon}
                   />
@@ -143,12 +169,13 @@ export default function GetVideoPage() {
                     <p className={styles.addLocation}>Click to add location</p>
                   </div>
                 </div>
-                <button
-                  className={styles.deleteButton}
-                  onClick={() => handleRemoveFile(index)}
-                >
-                  ✕
-                </button>
+
+                <img
+                    src="/trash.svg"
+                    alt="Trash Icon"
+                    className={styles.trashIcon}
+                    onClick={() => handleRemoveFile(index)}
+                  />
               </div>
             ))}
           </div>
