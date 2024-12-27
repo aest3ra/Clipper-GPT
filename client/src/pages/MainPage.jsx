@@ -1,10 +1,22 @@
+import { useState } from "react";
 import { useHandleRoute } from "../lib/util";
-
 import "../styles/common/Main.css";
+import faqs from "../lib/faq"
 
 export default function MainPage() {
     
     const { handleRoute } = useHandleRoute();
+    const [openQuestions, setOpenQuestions] = useState([]);
+
+
+    const toggleQuestion = (index) => {
+        setOpenQuestions((prevState) => {
+            const newState = [...prevState];
+            newState[index] = !newState[index]; // 클릭된 질문의 상태를 반전
+            return newState;
+        });
+    };
+
 
   return (
     <div className="root">
@@ -107,6 +119,8 @@ export default function MainPage() {
                 <img src="/logoBig.svg" alt="logo" />
             </div>
         </div>
+
+    {/* ---------------------------------------------------------------   */}
         {/* 버튼 그룹 */}
         <div className="buttons">
         <button className="start-button" onClick={() => handleRoute("/edit1")} >편집 시작</button>
@@ -124,19 +138,36 @@ export default function MainPage() {
         </div>
 
     {/* ---------------------------------------------------------------   */}
-        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 
         <h2>자주 묻는 질문</h2>
-        <div className="ask">
-            <div className="question">
-                무료인가요
-            </div>
-            <div className="question">
-                이메일이 오지 않아요.
-            </div>
-            <div className="question">
-                개인정보 유출 등 우려는 없나요?
-            </div>
+        <div className="faq-container">
+            {faqs.map((faq, index) => (
+                <div
+                    key={index}
+                    className={`faq-item ${openQuestions[index] ? "active" : ""}`}
+                >
+                    <div
+                        className="faq-question"
+                        onClick={() => toggleQuestion(index)}
+                    >
+                        {faq.question}
+                        <img
+                            src={openQuestions[index] ? "/upperArrow.svg" : "/underArrow.svg"}
+                            alt={openQuestions[index] ? "Close" : "Open"}
+                            className="faq-toggle-icon"
+                        />
+                    </div>
+                    <div
+                        className={`faq-answer-wrapper ${
+                            openQuestions[index] ? "open" : "closed"
+                        }`}
+                        onClick={() => toggleQuestion(index)}
+                    >
+                        <div className="faq-answer">{faq.answer}</div>
+                    </div>
+                </div>
+            ))}
         </div>
 
     {/* ---------------------------------------------------------------   */}
@@ -150,7 +181,10 @@ export default function MainPage() {
             </div>
         </div>
 
+        <br /><br /><br /><br /><br /><br />
 
     </div>
+    
+
   );
 }

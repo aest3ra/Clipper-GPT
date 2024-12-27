@@ -39,8 +39,6 @@ h2 {
     width: 100%;
     align-items: center;
     justify-content: center;
-  
-    /* 좌우 20px 여백, 상하 0 */
     padding: 0 20px;
     box-sizing: border-box;
 }
@@ -62,6 +60,7 @@ p {
     line-height: 1.5;
     color: #6b7280;
 }
+
 
 .buttons {
     display: flex;
@@ -185,6 +184,68 @@ p {
 .step .icon:hover {
     transform: scale(1.2); /* 크기를 20% 확대 */
 }
+
+/* Q&A */
+
+.faq-container {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.faq-item {
+    background: #F8F8F8;
+    border: 1px solid #F8F8F8;
+    border-radius: 10px;
+    padding: 20px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.faq-item.active {
+    background: #F8F8F8;
+}
+
+.faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #1f2937;
+}
+
+.faq-toggle-icon {
+    width: 30px;
+    height: auto;
+}
+
+.faq-toggle {
+    font-size: 1.2rem;
+    color: #6b7280;
+}
+
+/* 답변 애니메이션 추가 */
+.faq-answer-wrapper {
+    overflow: hidden; /* 답변이 보이지 않도록 설정 */
+    max-height: 0; /* 초기 상태에서 높이를 0으로 설정 */
+    transition: max-height 0.3s ease, padding 0.3s ease; /* 애니메이션 추가 */
+}
+
+.faq-answer-wrapper.open {
+    max-height: 200px; /* 열렸을 때 최대 높이 설정 */
+    padding-top: 10px; /* 열린 상태에서 위쪽 여백 추가 */
+}
+
+.faq-answer {
+    font-size: 1rem;
+    color: #4b5563;
+    line-height: 1.5;
+}
+
 
 /* =======================================
    반응형 (모바일/태블릿) 미디어쿼리

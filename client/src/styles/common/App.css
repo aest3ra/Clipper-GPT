@@ -1,3 +1,7 @@
+html, body {
+    overflow: hidden; /* 기본 스크롤 제거 */
+}
+
 .App {
     display: flex;
     flex-direction: column;
@@ -24,3 +28,4 @@
     width: 100%;
     background-color: white;
 }
+
