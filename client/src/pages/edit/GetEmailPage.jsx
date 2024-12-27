@@ -9,12 +9,18 @@ export default function GetEmailPage() {
   const [emailFields, setEmailFields] = useState([""]);
   const [isNextDisabled, setIsNextDisabled] = useState(true);
 
+  const isValidEmail = (email) =>
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
   const handleEmailChange = (value, index) => {
     const updatedEmails = [...emailFields];
     updatedEmails[index] = value;
     setEmailFields(updatedEmails);
 
-    setIsNextDisabled(!updatedEmails.some((email) => email.trim() !== ""));
+    setIsNextDisabled(
+      !updatedEmails.some((email) => email.trim() !== "") ||
+      !updatedEmails.every((email) => isValidEmail(email) || email.trim() === "")
+    );
   };
 
   const addEmailField = () => {
@@ -26,7 +32,18 @@ export default function GetEmailPage() {
   const removeEmailField = (indexToRemove) => {
     const updatedEmails = emailFields.filter((_, idx) => idx !== indexToRemove);
     setEmailFields(updatedEmails);
-    setIsNextDisabled(!updatedEmails.some((email) => email.trim() !== ""));
+    setIsNextDisabled(
+      !updatedEmails.some((email) => email.trim() !== "") ||
+      !updatedEmails.every((email) => isValidEmail(email) || email.trim() === "")
+    );
+  };
+
+  const handleNext = () => {
+    if (!emailFields.every((email) => isValidEmail(email) || email.trim() === "")) {
+      alert("이메일 형식이 올바르지 않습니다");
+      return;
+    }
+    handleRoute("/edit2", { emailFields });
   };
 
   return (
@@ -49,12 +66,12 @@ export default function GetEmailPage() {
                 onChange={(e) => handleEmailChange(e.target.value, index)}
               />
               {index > 0 && (
-                <button
+                <img
+                  src="/trash.svg"
+                  alt="Email Icon"
                   className={styles.deleteButton}
                   onClick={() => removeEmailField(index)}
-                >
-                  ✕
-                </button>
+                />
               )}
             </div>
           </div>
@@ -77,7 +94,7 @@ export default function GetEmailPage() {
         <button
           className={styles.startButton}
           disabled={isNextDisabled}
-          onClick={() => handleRoute("/edit2", { emailFields })}
+          onClick={handleNext}
         >
           다음
         </button>

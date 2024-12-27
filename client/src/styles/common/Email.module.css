@@ -65,6 +65,7 @@
 .icon {
     width: 20px;
     height: 20px;
+    margin-top: 5px;
 }
 
 .inputField {
@@ -83,23 +84,18 @@
 }
 
 .deleteButton {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
+    margin-top: 15px;
     border: none;
     border-radius: 50%;
-    background-color: #F87171;
     color: white;
     font-size: 1rem;
-    font-weight: bold;
     cursor: pointer;
     transition: transform 0.2s ease, background-color 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .deleteButton:hover {
-    background-color: #EF4444;
     transform: scale(1.1);
 }
 
