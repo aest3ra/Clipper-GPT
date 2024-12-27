@@ -7,80 +7,90 @@ import Step2 from "../../components/steps/step2";
 import Spinner from "../../components/spinner/Spinner"; 
 
 export default function GetVideoPage() {
-  const { handleRoute } = useHandleRoute();
-  const location = useLocation();
+    
+    const { handleRoute } = useHandleRoute();
+    const location = useLocation();
 
-  const emailFields = location.state?.emailFields || [];
-  const [uploadedFiles, setUploadedFiles] = useState([]);
-  const [isNextDisabled, setIsNextDisabled] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [subtitleChecked, setSubtitleChecked] = useState(false); // 자막 체크박스 상태
+    const emailFields = location.state?.emailFields || [];
+    const [uploadedFiles, setUploadedFiles] = useState([]);
+    const [isNextDisabled, setIsNextDisabled] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [subtitleChecked, setSubtitleChecked] = useState(false);
+    const [isEditingLocation, setIsEditingLocation] = useState(null);
 
-  const MAX_TOTAL_SIZE = 2 * 1024 * 1024 * 1024;
-  const MAX_VIDEO_COUNT = 5;
-  const MAX_TOTAL_DURATION = 30 * 60;
+    const MAX_TOTAL_SIZE = 2 * 1024 * 1024 * 1024;
+    const MAX_VIDEO_COUNT = 5;
+    const MAX_TOTAL_DURATION = 30 * 60;
 
-  const calculateTotalSize = (files) => {
-    return files.reduce((total, file) => total + file.file.size, 0);
-  };
 
-  const calculateTotalDuration = async (files) => {
-    const durationPromises = files.map(
-      (file) =>
-        new Promise((resolve) => {
-          const videoElement = document.createElement("video");
-          videoElement.preload = "metadata";
+    const handleLocationChange = (index, value) => {
+        const updatedFiles = [...uploadedFiles];
+        updatedFiles[index].location = value;
+        setUploadedFiles(updatedFiles);
+        setIsEditingLocation(null);
+    };
 
-          videoElement.onloadedmetadata = () => {
-            resolve(videoElement.duration);
-          };
+    const calculateTotalSize = (files) => {
+      return files.reduce((total, file) => total + file.file.size, 0);
+    };
 
-          videoElement.src = URL.createObjectURL(file.file);
-        })
-    );
+    const calculateTotalDuration = async (files) => {
+        const durationPromises = files.map(
+            (file) =>
+                new Promise((resolve) => {
+                    const videoElement = document.createElement("video");
+                    videoElement.preload = "metadata";
 
-    const durations = await Promise.all(durationPromises);
-    return durations.reduce((total, duration) => total + duration, 0);
-  };
+                    videoElement.onloadedmetadata = () => {
+                        resolve(videoElement.duration);
+                    };
 
-  const handleFileSelect = async (event) => {
-    const files = Array.from(event.target.files);
-    const validFiles = files.filter((file) => file.type.startsWith("video/"));
-    await updateFileList(validFiles);
-  };
+                    videoElement.src = URL.createObjectURL(file.file);
+                })
+        );
 
-  const handleDrop = async (event) => {
-    event.preventDefault();
-    const files = Array.from(event.dataTransfer.files);
-    const validFiles = files.filter((file) => file.type.startsWith("video/"));
-    await updateFileList(validFiles);
-  };
+        const durations = await Promise.all(durationPromises);
+        return durations.reduce((total, duration) => total + duration, 0);
+    };
 
-  const updateFileList = async (files) => {
-    const newFiles = files.map((file) => ({
-      file,
-      name: file.name,
-      size: file.size,
-      displaySize: (file.size / 1024).toFixed(0) + " KB",
-    }));
+    const handleFileSelect = async (event) => {
+        const files = Array.from(event.target.files);
+        const validFiles = files.filter((file) => file.type.startsWith("video/"));
+        await updateFileList(validFiles);
+    };
 
-    const updatedFiles = [...uploadedFiles, ...newFiles];
-    if (updatedFiles.length > MAX_VIDEO_COUNT) {
-      alert("동영상은 최대 5개만 업로드할 수 있습니다.");
-      return;
-    }
+    const handleDrop = async (event) => {
+        event.preventDefault();
+        const files = Array.from(event.dataTransfer.files);
+        const validFiles = files.filter((file) => file.type.startsWith("video/"));
+        await updateFileList(validFiles);
+    };
+
+    const updateFileList = async (files) => {
+        const newFiles = files.map((file) => ({
+            file,
+            name: file.name,
+            size: file.size,
+            displaySize: (file.size / 1024).toFixed(0) + " KB",
+        }));
+
+        const updatedFiles = [...uploadedFiles, ...newFiles];
+        if (updatedFiles.length > MAX_VIDEO_COUNT) {
+            alert("동영상은 최대 5개만 업로드할 수 있습니다.");
+            return;
+        }
 
         const totalSize = calculateTotalSize(updatedFiles);
         const totalDuration = await calculateTotalDuration(updatedFiles);
 
         if (totalSize > MAX_TOTAL_SIZE) {
-        alert("동영상은 총 2GB만 가능합니다.");
+            alert("동영상은 총 2GB만 가능합니다.");
         } else if (totalDuration > MAX_TOTAL_DURATION) {
-        alert("동영상은 최대 5개이고 30분을 초과할 수 없습니다.");
+            alert("동영상은 최대 5개이고 30분을 초과할 수 없습니다.");
         } else {
-        setUploadedFiles(updatedFiles);
-        setIsNextDisabled(false);
-        }
+            setUploadedFiles(updatedFiles);
+            setIsNextDisabled(false);
+            }
     };
 
     const handleRemoveFile = (index) => {
@@ -102,9 +112,9 @@ export default function GetVideoPage() {
         setIsLoading(true);
         console.log(uploadedFiles)
         const response = await uploadVideos(
-            subtitleChecked ? 1 : 0, // subtitle
-            emailFields,             // emailFields
-            uploadedFiles            // files
+            subtitleChecked ? 1 : 0,
+            emailFields,  
+            uploadedFiles  
         );
 
         if (!response.ok) {
@@ -124,15 +134,15 @@ export default function GetVideoPage() {
 
   return (
     <div className={styles.root}>
-      {isLoading && (
+    {isLoading && (
         <div className={styles.loadingOverlay}>
           <Spinner />
         </div>
-      )}
+    )}
 
-      <h2 className={styles.title}>Upload video</h2>
+    <h2 className={styles.title}>Upload video</h2>
 
-      {uploadedFiles.length === 0 ? (
+    {uploadedFiles.length === 0 ? (
         <div
           className={styles.videoInput}
           onDragOver={(e) => e.preventDefault()}
@@ -156,31 +166,47 @@ export default function GetVideoPage() {
         </div>
       ) : (
         <>
-          <div className={styles.fileList}>
+            <div className={styles.fileList}>
             {uploadedFiles.map((item, index) => (
-              <div key={index} className={styles.fileItem}>
+                <div key={index} className={styles.fileItem}>
                 <div className={styles.fileDetails}>
-                  <img
+                    <img
                     src="/video.svg"
                     alt="Video Icon"
                     className={styles.fileIcon}
-                  />
-                  <div>
+                    />
+                    <div>
                     <p className={styles.fileName}>{item.name}</p>
                     <p className={styles.fileSize}>{item.displaySize}</p>
-                    <p className={styles.addLocation}>Click to add location</p>
-                  </div>
+                    {isEditingLocation === index ? (
+                        <input
+                        type="text"
+                        placeholder="Enter location"
+                        className={styles.locationInput}
+                        onBlur={(e) => handleLocationChange(index, e.target.value)}
+                        autoFocus
+                        />
+                    ) : (
+                        <p
+                        className={styles.addLocation}
+                        onClick={() => setIsEditingLocation(index)}
+                        >
+                        {item.location || "Click to add location"}
+                        </p>
+                    )}
+                    </div>
                 </div>
-
                 <img
-                  src="/trash.svg"
-                  alt="Trash Icon"
-                  className={styles.trashIcon}
-                  onClick={() => handleRemoveFile(index)}
+                    src="/trash.svg"
+                    alt="Trash Icon"
+                    className={styles.trashIcon}
+                    onClick={() => handleRemoveFile(index)}
                 />
-              </div>
+                </div>
             ))}
-          </div>
+            </div>
+
+
 
           <div className={styles.addButton}>
             <button
