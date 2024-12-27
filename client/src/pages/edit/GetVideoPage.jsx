@@ -11,10 +11,10 @@ export default function GetVideoPage() {
   const location = useLocation();
 
   const emailFields = location.state?.emailFields || [];
-
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [isNextDisabled, setIsNextDisabled] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [subtitleChecked, setSubtitleChecked] = useState(false); // 자막 체크박스 상태
 
   const MAX_TOTAL_SIZE = 2 * 1024 * 1024 * 1024;
   const MAX_VIDEO_COUNT = 5;
@@ -70,53 +70,55 @@ export default function GetVideoPage() {
       return;
     }
 
-    const totalSize = calculateTotalSize(updatedFiles);
-    const totalDuration = await calculateTotalDuration(updatedFiles);
+        const totalSize = calculateTotalSize(updatedFiles);
+        const totalDuration = await calculateTotalDuration(updatedFiles);
 
-    if (totalSize > MAX_TOTAL_SIZE) {
-      alert("동영상은 총 2GB만 가능합니다.");
-    } else if (totalDuration > MAX_TOTAL_DURATION) {
-      alert("동영상은 최대 5개이고 30분을 초과할 수 없습니다.");
-    } else {
-      setUploadedFiles(updatedFiles);
-      setIsNextDisabled(false);
-    }
-  };
+        if (totalSize > MAX_TOTAL_SIZE) {
+        alert("동영상은 총 2GB만 가능합니다.");
+        } else if (totalDuration > MAX_TOTAL_DURATION) {
+        alert("동영상은 최대 5개이고 30분을 초과할 수 없습니다.");
+        } else {
+        setUploadedFiles(updatedFiles);
+        setIsNextDisabled(false);
+        }
+    };
 
-  const handleRemoveFile = (index) => {
-    const updatedFiles = uploadedFiles.filter((_, i) => i !== index);
-    setUploadedFiles(updatedFiles);
+    const handleRemoveFile = (index) => {
+        const updatedFiles = uploadedFiles.filter((_, i) => i !== index);
+        setUploadedFiles(updatedFiles);
 
-    const totalSize = calculateTotalSize(updatedFiles);
-    setIsNextDisabled(totalSize > MAX_TOTAL_SIZE);
-  };
+        const totalSize = calculateTotalSize(updatedFiles);
+        setIsNextDisabled(totalSize > MAX_TOTAL_SIZE);
+    };
 
-  /**
-   * 이메일과 동영상 server로 전송
-   */
-  const handleUploadAndNext = async () => {
-    if (uploadedFiles.length === 0) {
-      alert("업로드할 동영상이 없습니다.");
-      return;
-    }
+    const handleUploadAndNext = async () => {
+        if (uploadedFiles.length === 0) {
+            alert("업로드할 동영상이 없습니다.");
+            return;
+        }
 
     try {
-      setIsLoading(true);
 
-      const response = await uploadVideos(emailFields, uploadedFiles);
+        setIsLoading(true);
+        console.log(uploadedFiles)
+        const response = await uploadVideos(
+            subtitleChecked ? 1 : 0, // subtitle
+            emailFields,             // emailFields
+            uploadedFiles            // files
+        );
 
-      if (!response.ok) {
-        console.error("업로드 실패", response.statusText);
-        alert("업로드 실패");
-        setIsLoading(false);
-        return;
-      }
+        if (!response.ok) {
+            console.error("업로드 실패", response.statusText);
+            alert("업로드 실패");
+            setIsLoading(false);
+            return;
+        }
 
-      handleRoute("/complete");
+        handleRoute("/complete");
     } catch (error) {
-      console.error("업로드 에러", error);
-      alert("업로드 중 오류가 발생했습니다.");
-      setIsLoading(false);
+        console.error("업로드 에러", error);
+        alert("업로드 중 오류가 발생했습니다.");
+        setIsLoading(false);
     }
   };
 
@@ -141,7 +143,7 @@ export default function GetVideoPage() {
             <p>
               <span className={styles.uploadLink}>Click to Upload</span> or drag and drop
             </p>
-            <p className={styles.fileSize}>Max. File size: 2GB per file</p>
+            <p className={styles.fileSize}>Max. number of video 5</p>
           </label>
           <input
             id="fileInput"
@@ -171,11 +173,11 @@ export default function GetVideoPage() {
                 </div>
 
                 <img
-                    src="/trash.svg"
-                    alt="Trash Icon"
-                    className={styles.trashIcon}
-                    onClick={() => handleRemoveFile(index)}
-                  />
+                  src="/trash.svg"
+                  alt="Trash Icon"
+                  className={styles.trashIcon}
+                  onClick={() => handleRemoveFile(index)}
+                />
               </div>
             ))}
           </div>
@@ -201,15 +203,31 @@ export default function GetVideoPage() {
       )}
 
       {uploadedFiles.length > 0 && (
-        <div className={styles.buttons}>
-          <button
-            className={styles.startButton}
-            disabled={isNextDisabled}
-            onClick={handleUploadAndNext}
-          >
-            다음
-          </button>
-        </div>
+        <>
+          <div className={styles.checkboxContainer}>
+            <div className={styles.checkboxContainer}>
+              <label className={styles.checkboxLabel}>
+                <input
+                  type="checkbox"
+                  checked={subtitleChecked}
+                  onChange={(e) => setSubtitleChecked(e.target.checked)}
+                  className={styles.checkbox}
+                />
+                자막 씌우기
+              </label>
+            </div>
+          </div>
+
+          <div className={styles.buttons}>
+            <button
+              className={styles.startButton}
+              disabled={isNextDisabled}
+              onClick={handleUploadAndNext}
+            >
+              다음
+            </button>
+          </div>
+        </>
       )}
 
       <div className={styles.graph}>

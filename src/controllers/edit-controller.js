@@ -29,6 +29,10 @@ module.exports.receiveVideos = async (req, res, next) => {
 
     try {
         const emails = req.body.emails;
+        const subtitle = req.body.subtitle;
+
+        console.log(subtitle)
+        
 
         if (!emails) {
             return res.status(400).json({ message: '편집된 영상의 제목과 영상을 받을 이메일이 필요합니다.' });

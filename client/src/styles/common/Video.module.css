@@ -23,7 +23,7 @@
     text-align: left;
     width: 100%;
     margin-bottom: 20px;
-    margin-left: 10px;
+    margin-left: 40px;
 }
 
 /* Drop Zone */
@@ -32,16 +32,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    /* 1) 폭 통일: 100% 안에서 최대 600px */
     width: 100%;
-    max-width: 600px;
-
+    max-width: 700px;
     height: 180px;
     border: 2px dashed #D1D5DB;
-    border-radius: 15px;
-    background-color: #F9FAFB;
-    margin-bottom: 30px;
+    border-radius: 10px;
+    margin-bottom: 20px;
     transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
@@ -160,10 +156,6 @@
     transform: scale(1.05);
 }
 
-.buttons {
-    margin-top: 50px;
-}
-
 .startButton {
     padding: 1rem 2.8rem;
     border-radius: 7px;
@@ -180,6 +172,38 @@
     background-color: #1E40AF;
     transform: scale(1.05);
 }
+
+.checkboxContainer {
+    margin-top: 60px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+  
+.checkboxLabel {
+    font-size: 1.2rem;
+    color: #1f2937;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+  
+.checkbox {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    appearance: none; /* 기본 체크박스 스타일 제거 */
+    background-image: url('/notChecked.svg'); /* 기본 상태 이미지 */
+    background-repeat: no-repeat;
+    background-size: contain;
+    border: none; /* 테두리 제거 */
+    transition: background-image 0.3s ease;
+}
+
+.checkbox:checked {
+    background-image: url('/checked.svg'); /* 체크된 상태 이미지 */
+}
+
+  
 
 /* Progress Graph */
 .graph {
