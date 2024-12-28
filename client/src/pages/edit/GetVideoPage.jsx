@@ -71,7 +71,7 @@ export default function GetVideoPage() {
             file,
             name: file.name,
             size: file.size,
-            displaySize: (file.size / 1024).toFixed(0) + " KB",
+            displaySize: (file.size / (1024 * 1024)).toFixed(1) + " MB",
         }));
 
         const updatedFiles = [...uploadedFiles, ...newFiles];
@@ -169,40 +169,38 @@ export default function GetVideoPage() {
             <div className={styles.fileList}>
             {uploadedFiles.map((item, index) => (
                 <div key={index} className={styles.fileItem}>
-                <div className={styles.fileDetails}>
-                    <img
-                    src="/video.svg"
-                    alt="Video Icon"
-                    className={styles.fileIcon}
-                    />
-                    <div>
-                    <p className={styles.fileName}>{item.name}</p>
-                    <p className={styles.fileSize}>{item.displaySize}</p>
-                    {isEditingLocation === index ? (
-                        <input
-                        type="text"
-                        placeholder="Enter location"
-                        className={styles.locationInput}
-                        onBlur={(e) => handleLocationChange(index, e.target.value)}
-                        autoFocus
-                        />
-                    ) : (
-                        <p
-                        className={styles.addLocation}
-                        onClick={() => setIsEditingLocation(index)}
-                        >
-                        {item.location || "Click to add location"}
-                        </p>
-                    )}
+                    <div className={styles.fileDetails}>
+                        <img src="/video.svg" alt="Video Icon" className={styles.fileIcon} />
+                        <div>
+                            <p className={styles.fileName}>
+                                {item.name.length > 20 ? item.name.slice(0, 20) + "..." : item.name}
+                            </p>
+                            <p className={styles.fileSize}>{item.displaySize}</p>
+                            {isEditingLocation === index ? (
+                                <input
+                                    type="text"
+                                    placeholder="Enter location"
+                                    className={styles.locationInput}
+                                    onBlur={(e) => handleLocationChange(index, e.target.value)}
+                                    autoFocus
+                                />
+                                ) : (
+                                <p
+                                    className={styles.addLocation}
+                                    onClick={() => setIsEditingLocation(index)}
+                                >
+                                    {item.location || "Click to add location"}
+                                </p>
+                            )}
+                        </div>
                     </div>
-                </div>
                 <img
-                    src="/trash.svg"
-                    alt="Trash Icon"
-                    className={styles.trashIcon}
-                    onClick={() => handleRemoveFile(index)}
+                  src="/trash.svg"
+                  alt="Trash Icon"
+                  className={styles.trashIcon}
+                  onClick={() => handleRemoveFile(index)}
                 />
-                </div>
+              </div> 
             ))}
             </div>
 

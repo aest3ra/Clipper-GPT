@@ -84,6 +84,7 @@
     max-width: 700px;
 }
 
+
 .fileItem {
     display: flex;
     justify-content: space-between;
@@ -121,23 +122,32 @@
     font-size: 1rem;
     font-weight: bold;
     color: #1F2937;
+    max-width: 200px; /* 텍스트 너비 제한 */
+    white-space: nowrap; /* 한 줄로 표시 */
+    overflow: hidden; /* 넘치는 텍스트 숨김 */
+    text-overflow: ellipsis; /* 말줄임표(...) 표시 */
 }
 
+
 .addLocation {
-    font-size: 0.9rem;
+    font-size: 1rem;
+    font-weight: 800;
     color: #2563EB;
     cursor: pointer;
-    text-decoration: underline;
 }
 
 .locationInput {
     width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #cacaca;
+    padding: 5px;
+    background-color: white;
+    border: 1px solid #CACACA; /* 스타일을 명확히 지정 */
     border-radius: 5px;
     font-size: 1rem;
+    outline: none;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    margin-bottom: 13px;
 }
+
 
 .addButton {
     width: 100%;
