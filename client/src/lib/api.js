@@ -1,23 +1,31 @@
 const baseURL = "http://127.0.0.1:8000";
 
 export async function uploadVideos(subtitle, emailFields, uploadedFiles) {
-    const formData = new FormData();
 
-    formData.append("subtitle", subtitle);
-    formData.append("emails", JSON.stringify(emailFields));
+  const metaData = {
+    subtitle,
+    emails: emailFields,
+    videos: uploadedFiles.map(({ name, location }) => ({
+      name,
+      location: location || "",
+    })),
+  };
 
-    uploadedFiles.forEach(({ file, location }) => {
-        formData.append("videos", file);
-        formData.append("locations", location || ""); // 위치 정보 추가 (없으면 빈 값)
-    });
+  const formData = new FormData();
 
-    console.log("Subtitle:", subtitle);
-    console.log("Uploaded Files:", uploadedFiles);
+  formData.append("data", JSON.stringify(metaData));
 
-    const response = await fetch(baseURL + "/edit/upload", {
-        method: "POST",
-        body: formData,
-    });
+  uploadedFiles.forEach(({ file }) => {
+    formData.append("files", file);
+  });
 
-    return response;
+  console.log("Subtitle:", subtitle);
+  console.log("MetaData:", metaData);
+
+  const response = await fetch(baseURL + "/edit/upload", {
+    method: "POST",
+    body: formData,
+  });
+
+  return response;
 }

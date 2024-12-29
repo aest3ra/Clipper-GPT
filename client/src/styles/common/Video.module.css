@@ -92,7 +92,18 @@
     padding: 10px;
     border: 1px solid #CACACA;
     border-radius: 10px;
+    transition: opacity 0.3s ease;
 }
+
+.fadeOut {
+    opacity: 0.3;  /* 흐려지는 정도 */
+}
+
+.fileItem.dragOver {
+    transform: scale(1.02);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
 
 .fileDetails {
     display: flex;
@@ -218,6 +229,19 @@
 
 .checkbox:checked {
     background-image: url('/checked.svg'); /* 체크된 상태 이미지 */
+}
+
+.arrowIcon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin-right: 10px; 
+    margin-bottom: 50px; 
+    transition: transform 0.2s;
+}
+
+.arrowIcon:hover {
+    transform: scale(1.1);
 }
 
 
