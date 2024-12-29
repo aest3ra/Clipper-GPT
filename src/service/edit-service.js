@@ -1,4 +1,5 @@
 const fs = require('fs').promises;
+const path = require('path');
 const FormData = require('form-data');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
@@ -10,7 +11,7 @@ class Video {
         for (const videoPath of videoPaths) {
             try {
                 const fileData = await fs.readFile(videoPath);
-                const fileName = videoPath.split('/').pop();
+                const fileName = path.basename(videoPath); 
                 filesData.push({ filename: fileName, data: fileData });
             } catch (error) {
                 console.error(`Error reading file ${videoPath}:`, error);
@@ -19,15 +20,17 @@ class Video {
         return filesData;
     }
 
-    async sendFile(emails, videos) {
+    async sendFile(emails, videos, locations, subtitle) {
         const formData = new FormData();
-        formData.append('emails', emails);
+        formData.append('emails', JSON.stringify(emails))
+        formData.append('subtitle', subtitle);
       
-        videos.forEach((video) => {
-          formData.append('videos', video.data, { filename: video.filename });
+        videos.forEach((video, i) => {
+            formData.append('videos', video.data, { filename: video.filename });
+            formData.append('locations', locations[i] || '');
         });
-      
-        console.log("formData emails : ", formData._streams);
+
+        console.log('formData emails : ', formData._streams);
     
 
         // try {
