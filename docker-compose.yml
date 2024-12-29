@@ -2,7 +2,9 @@ version: '3.8'
 
 services:
   express:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: express-app
     ports:
       - "8000:8000"
@@ -12,19 +14,21 @@ services:
     networks:
       - app-network
     volumes:
-      - ./public:/app/public
+      - static-files:/app/public
 
   nginx:
-    build: ./nginx
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
     container_name: nginx-proxy
-    ports:
-      - "80:80"
     depends_on:
       - express
+    ports:
+      - "80:80"
     networks:
       - app-network
     volumes:
-      - ./public:/usr/share/nginx/html
+      - static-files:/usr/share/nginx/html
 
 networks:
   app-network:
