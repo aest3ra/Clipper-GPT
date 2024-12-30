@@ -6,7 +6,7 @@ const Nav = () => {
     const { handleRoute } = useHandleRoute();
 
     return (
-        <img src="/navlogo.svg" alt="logo" onClick={ () => handleRoute("/") } />
+        <img src="/logo.png" alt="logo" onClick={ () => handleRoute("/") } />
     );
 };
 

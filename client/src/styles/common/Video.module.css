@@ -196,9 +196,25 @@
     transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
+.startButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* 비활성화된 체크박스 */
+.checkbox:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 .startButton:hover {
     background-color: #1E40AF;
     transform: scale(1.05);
+}
+
+.startButton:disabled:hover {
+    background-color: #2563EB; /* 원래 색상으로 */
+    transform: none;          /* 호버 시 확대 제거 */
 }
 
 .checkboxContainer {

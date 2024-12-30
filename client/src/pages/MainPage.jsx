@@ -26,7 +26,7 @@ export default function MainPage() {
         <h1>AI 완전 자동 영상 편집기</h1>
         <div className="content">
             <div className="logoImg">
-                <img src="/logoBig.svg" alt="logo" />
+                <img src="/logo.png" alt="logo" />
             </div>
             
             <div className="contentDesc">
@@ -116,7 +116,7 @@ export default function MainPage() {
                     프리런칭 기간 중 이용하신 분들께는 정식 런칭 후 무료 쿠폰을 드려요!
             </div>
             <div className="logoImg">
-                <img src="/logoBig.svg" alt="logo" />
+                <img src="/logo.png" alt="logo" />
             </div>
         </div>
 

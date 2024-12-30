@@ -155,6 +155,7 @@ export default function GetVideoPage() {
 
     return (
         <div className={styles.root}>
+            {/* 로딩 스피너 오버레이 */}
             {isLoading && (
                 <div className={styles.loadingOverlay}>
                     <Spinner />
@@ -164,6 +165,7 @@ export default function GetVideoPage() {
             <h2 className={styles.title}>Upload video</h2>
 
             {uploadedFiles.length === 0 ? (
+                // 동영상이 하나도 없을 때: 드롭존만 표시
                 <div
                     className={styles.videoInput}
                     onDragOver={(e) => e.preventDefault()}
@@ -186,13 +188,12 @@ export default function GetVideoPage() {
                     />
                 </div>
             ) : (
+                // 동영상이 하나 이상 업로드되면: 파일 목록 + 'Add Video' 버튼
                 <>
                     <div className={styles.fileList}>
                         {uploadedFiles.map((item, index) => {
                             const isSwapping = swappingIndices.includes(index);
 
-                            // fadeOut 클래스 적용 여부
-                            // (배열 재정렬 전까지 0.3초 동안만 opacity 낮춤)
                             return (
                                 <div
                                     key={index}
@@ -275,33 +276,34 @@ export default function GetVideoPage() {
                 </>
             )}
 
-            {uploadedFiles.length > 0 && (
-                <>
-                    <div className={styles.checkboxContainer}>
-                        <div className={styles.checkboxContainer}>
-                            <label className={styles.checkboxLabel}>
-                                <input
-                                    type="checkbox"
-                                    checked={subtitleChecked}
-                                    onChange={(e) => setSubtitleChecked(e.target.checked)}
-                                    className={styles.checkbox}
-                                />
-                                자막 씌우기
-                            </label>
-                        </div>
-                    </div>
+            {/* 
+              체크박스와 다음 버튼을 무조건 렌더링하되,
+              동영상이 하나도 없으면 disabled 상태가 되도록 처리
+            */}
+            <div className={styles.checkboxContainer}>
+                <div className={styles.checkboxContainer}>
+                    <label className={styles.checkboxLabel}>
+                        <input
+                            type="checkbox"
+                            checked={subtitleChecked}
+                            onChange={(e) => setSubtitleChecked(e.target.checked)}
+                            className={styles.checkbox}
+                            disabled={uploadedFiles.length === 0} // 동영상이 없으면 체크 불가
+                        />
+                        자막 씌우기
+                    </label>
+                </div>
+            </div>
 
-                    <div className={styles.buttons}>
-                        <button
-                            className={styles.startButton}
-                            disabled={isNextDisabled}
-                            onClick={handleUploadAndNext}
-                        >
-                            다음
-                        </button>
-                    </div>
-                </>
-            )}
+            <div className={styles.buttons}>
+                <button
+                    className={styles.startButton}
+                    disabled={uploadedFiles.length === 0 || isNextDisabled}
+                    onClick={handleUploadAndNext}
+                >
+                    다음
+                </button>
+            </div>
 
             <div className={styles.graph}>
                 <Step2 />
