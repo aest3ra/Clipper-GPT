@@ -63,7 +63,7 @@ export default function MainPage() {
             
             <div className="step">
                 <div className="screen-container">
-                    <img src="/screenshot1.svg" alt="step1" className="screenImg" />
+                    <img src="/screenshot1.png" alt="step1" className="screenImg" />
                 </div>
                 <div className="desc">
                     <img src="/icon1.png" alt="step1" className="icon" />
@@ -78,7 +78,7 @@ export default function MainPage() {
 
             <div className="step">
                 <div className="screen-container">
-                    <img src="/screenshot2.svg" alt="step2" className="screenImg" />
+                    <img src="/screenshot2.png" alt="step2" className="screenImg" />
                 </div>
                 <div className="desc">
                     <img src="/icon2.png" alt="step2" className="icon" />
@@ -93,7 +93,7 @@ export default function MainPage() {
 
             <div className="step">
                 <div className="screen-container">
-                    <img src="/screenshot3.svg" alt="step3" className="screenImg" />
+                    <img src="/screenshot3.png" alt="step3" className="screenImg" />
                 </div>
                 <div className="desc">
                     <img src="/icon1.png" alt="step3" className="icon" />
