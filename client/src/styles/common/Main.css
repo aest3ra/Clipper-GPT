@@ -116,7 +116,7 @@ p {
 /* 데스크톱(기본)에서: 이미지(order:1) → 설명(order:2) */
 .screen-container {
     position: relative;
-    width: 450px;
+    width: 502px;
     height: auto;
     order: 1; /* 사진이 먼저 (왼쪽) */
 }
@@ -253,11 +253,11 @@ p {
    ======================================= */
 @media (max-width: 768px) {
   .step {
-    flex-direction: column; /* 세로 배치 */
+    flex-direction: column;
     gap: 40px;
     margin: 50px 0;
   }
-  /* 모바일에서 설명(order:1) → 사진(order:2) 순서로 뒤집기 */
+
   .desc {
     order: 1;
   }
@@ -265,6 +265,12 @@ p {
     order: 2;
     width: 80%;
     max-width: 400px;
+  }
+  
+  .screenImg {
+    width: 235px;
+    margin: 0 auto;
+    display: block;
   }
 
   .desc {
