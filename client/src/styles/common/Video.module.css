@@ -156,7 +156,6 @@
     font-size: 1rem;
     font-weight: bold;
     color: #1F2937;
-    max-width: 200px; /* 텍스트 너비 제한 */
     white-space: nowrap; /* 한 줄로 표시 */
     overflow: hidden; /* 넘치는 텍스트 숨김 */
     text-overflow: ellipsis; /* 말줄임표(...) 표시 */
@@ -315,26 +314,30 @@
 /* =======================================
    반응형: 768px 이하에서 폰트/크기 조정 (예시)
    ======================================= */
-@media (max-width: 768px) {
-  .videoInput {
-    height: 150px;
-  }
-  .dropIcon {
-    width: 40px;
-    height: 40px;
-  }
-  .fileList {
-    gap: 10px;
-  }
-  .fileItem {
-    padding: 8px;
-  }
+   @media (max-width: 768px) {
+    .videoInput {
+      height: 150px;
+    }
+    .dropIcon {
+      width: 40px;
+      height: 40px;
+    }
+    .fileList {
+      gap: 10px;
+    }
+    .fileItem {
+      padding: 8px;
+    }
+  
+    .startButton {
+      font-size: 1.1rem;
+    }
+  
+    .graph {
+      margin-top: 60px;
+    }
+  
 
-  .startButton {
-    font-size: 1.1rem;
-  }
 
-  .graph {
-    margin-top: 60px;
-  }
+
 }
