@@ -33,23 +33,18 @@ class Video {
         });
 
         console.log('formData emails : ', formData._streams);
-    
+        
+        const response = await fetch('http://34.64.192.116:8000/files', {
+            method: 'POST',
+            body: formData
+        });
 
-        try {
-            const response = await fetch('http://34.64.192.116:8000/files', {
-                method: 'POST',
-                body: formData
-            });
-
-            if (!response.ok) {
-                const text = await response.text();
-                throw new Error(`Network response was not ok: ${text}`);
-            }
-
-            console.log('Files sent successfully');
-        } catch (error) {
-            console.error("Error during fetch:", error);
+        if (!response.ok) {
+            const text = await response.text();
+            throw new Error(`Network response was not ok: ${text}`);
         }
+
+        console.log('Files sent successfully');
     }
 
     async deleteFile(videoPaths) {

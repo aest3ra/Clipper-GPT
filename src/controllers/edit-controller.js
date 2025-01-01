@@ -52,7 +52,12 @@ module.exports.receiveVideos = async (req, res, next) => {
         const locations = (videoInfo || []).map(v => v.location || '');
 
 
-        videoService.sendFile(emails, videos, locations, subtitle);
+        try {
+            videoService.sendFile(emails, videos, locations, subtitle);
+        } catch {
+            console.log("error while Sending to AI server")
+        }
+        
 
         res.status(200).json({ message: '편집이 시작되었습니다!' });
 
