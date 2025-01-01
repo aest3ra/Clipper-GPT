@@ -17,7 +17,6 @@ export default function GetVideoPage() {
     const [subtitleChecked, setSubtitleChecked] = useState(false);
     const [isEditingLocation, setIsEditingLocation] = useState(null);
 
-    // 교체 애니메이션 적용 대상 인덱스(두 개) 보관
     const [swappingIndices, setSwappingIndices] = useState([]);
 
     const MAX_TOTAL_SIZE = 2 * 1024 * 1024 * 1024;
@@ -163,9 +162,16 @@ export default function GetVideoPage() {
             )}
 
             <h2 className={styles.title}>Upload video</h2>
+            <div className={styles.notice}>
+            <p className={styles.noticeLine1}>
+                영상 5개 이하, 총 30분 이하 업로드 가능합니다.
+            </p>
+            <p className={styles.noticeLine2}>
+                영상을 시간 순서대로 업로드 해주세요.
+            </p>
+            </div>
 
             {uploadedFiles.length === 0 ? (
-                // 동영상이 하나도 없을 때: 드롭존만 표시
                 <div
                     className={styles.videoInput}
                     onDragOver={(e) => e.preventDefault()}
