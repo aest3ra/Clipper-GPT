@@ -279,8 +279,8 @@ p {
   }
 
   .buttons {
-    flex-direction: column;
-    gap: 1rem;
+    flex-direction: row;
+    gap: 1rem; 
     margin-top: 40px;
     margin-bottom: 40px;
   }
@@ -290,6 +290,10 @@ p {
   }
   h2 {
     font-size: 1.5rem;
+  }
+
+  .content .freeDesc {
+    font-size: 1rem;
   }
 
   .logoImg img {

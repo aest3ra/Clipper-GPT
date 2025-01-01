@@ -111,12 +111,13 @@ export default function MainPage() {
     {/* ---------------------------------------------------------------   */}
         <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
         <div className="content">
-            <div className="freeDesc">
-                    프리런칭 2025년 3월까지 무료로 이용해보세요.<br />
-                    프리런칭 기간 중 이용하신 분들께는 정식 런칭 후 무료 쿠폰을 드려요!
-            </div>
+            <h1>AI 완전 자동 영상 편집기</h1>
             <div className="logoImg">
-                <img src="/logo.png" alt="logo" />
+                    <img src="/logo.png" alt="logo" />
+            </div>
+            <div className="freeDesc">
+                    프리런칭 2025년 3월까지 무료로 이용해보세요<br />
+                    프리런칭 기간 중 이용하신 분들께는 정식 런칭 후 무료 쿠폰을 드려요!
             </div>
         </div>
 
