@@ -1,6 +1,7 @@
 const fs = require('fs').promises;
 const path = require('path');
 const FormData = require('form-data');
+const { v4: uuidv4 } = require('uuid');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
 class Video {
@@ -24,6 +25,7 @@ class Video {
         const formData = new FormData();
         formData.append('emails', JSON.stringify(emails))
         formData.append('subtitle', subtitle);
+        formData.append('reqId', uuidv4());
       
         videos.forEach((video, i) => {
             formData.append('videos', video.data, { filename: video.filename });
