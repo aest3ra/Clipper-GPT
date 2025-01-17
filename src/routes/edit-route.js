@@ -57,7 +57,7 @@ router.get("/receive", (req, res) => {
 
 router.get("/download/:filename", (req, res) => {
     const fileName = req.params.filename;
-    const filePath = path.join(__dirname, "../resultVideo", fileName);
+    const filePath = path.join(__dirname, "../../resultVideo", fileName);
 
     res.download(filePath, fileName, (err) => {
         if (err) {
