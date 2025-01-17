@@ -54,4 +54,16 @@ router.get("/receive", (req, res) => {
                 </html>`);
 });
 
+router.get("/download/:filename", (req, res) => {
+    const fileName = req.params.filename;
+    const filePath = path.join(__dirname, "../resultVideo", fileName);
+
+    res.download(filePath, fileName, (err) => {
+        if (err) {
+            console.error("File download error:", err);
+            res.status(404).send({ message: "File not found." });
+        }
+    });
+});
+
 module.exports = router;
