@@ -1,68 +1,57 @@
 const express = require("express");
 const edit = require("../controllers/edit-controller.js");
-
+const receive = require("../controllers/receive-controller.js");
 const router = express.Router();
-
 
 router.post("/upload", edit.uploadVideos, edit.receiveVideos);
 
-router.get("/", (req, res) => {
-    res.send(`
-       <!DOCTYPE html>
-       <html lang="ko">
-       <head>
-           <meta charset="UTF-8">
-           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-           <title>Video Upload Test</title>
-       </head>
-       <body>
+// 전설의 사패 회피법
+router.post("/wjstjf/receive", receive.receiveResultVideo);
 
-       <h2>Video Upload Form</h2>
-       <form id="uploadForm">
-           <label for="email">Email:</label>
-           <input type="email" id="email" name="email" required>
-           <br><br>
+// Serve test HTML directly from a GET route
+router.get("/receive", (req, res) => {
+    res.send(`<!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Video Upload Test</title>
+                </head>
+                <body>
+                    <h1>Video Upload Test</h1>
+                    <form id="uploadForm" action="/edit/wjstjf/receive" method="POST" enctype="multipart/form-data">
+                        <label for="video">Select a video to upload:</label>
+                        <input type="file" id="video" name="video" accept="video/*" required>
+                        <button type="submit">Upload</button>
+                    </form>
 
-           <label for="title">Title:</label>
-           <input type="text" id="title" name="title" required>
-           <br><br>
+                    <h2>Upload Response</h2>
+                    <pre id="response"></pre>
 
-           <label for="videos">Upload Videos:</label>
-           <input type="file" id="videos" name="videos" accept="video/*" multiple required>
-           <br><br>
+                    <script>
+                        const form = document.getElementById('uploadForm');
+                        const responseDisplay = document.getElementById('response');
 
-           <button type="button" onclick="uploadVideos()">Upload</button>
-       </form>
+                        form.addEventListener('submit', async (event) => {
+                            event.preventDefault();
 
-       <script>
-           async function uploadVideos() {
-               const form = document.getElementById("uploadForm");
-               const formData = new FormData(form);
+                            const formData = new FormData(form);
 
+                            try {
+                                const response = await fetch(form.action, {
+                                    method: 'POST',
+                                    body: formData
+                                });
 
-               for (let [key, value] of formData.entries()) {
-                   console.log(key, value);
-               }
-
-
-               try {
-                   const response = await fetch("/edit/upload", {
-                       method: "POST",
-                       body: formData
-                   });
-
-                   const result = await response.json();
-                   alert(result.message);
-               } catch (error) {
-                   console.error("Error uploading videos:", error);
-                   alert("파일 업로드 중 오류가 발생했습니다.");
-               }
-           }
-       </script>
-
-       </body>
-       </html>
-    `);
+                                const result = await response.json();
+                                responseDisplay.textContent = JSON.stringify(result, null, 2);
+                            } catch (error) {
+                                responseDisplay.textContent = "Error";
+                            }
+                        });
+                    </script>
+                </body>
+                </html>`);
 });
 
 module.exports = router;
