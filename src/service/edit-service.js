@@ -35,7 +35,7 @@ class Video {
         console.log('formData emails : ', formData._streams);
 
         try {
-            await fetch('http://34.64.111.186/:8000/files', {
+            await fetch('http://34.64.111.186:8000/files', {
                 method: 'POST',
                 body: formData
             });
