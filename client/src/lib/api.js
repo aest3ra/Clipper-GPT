@@ -7,7 +7,6 @@ export async function uploadVideos(subtitle, emailFields, uploadedFiles) {
     emails: emailFields,
     videos: uploadedFiles.map(({ name, location }) => ({
       name,
-      location: location || "",
     })),
   };
 
