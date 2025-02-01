@@ -1,32 +1,26 @@
 /* 전체 레이아웃 */
 .root {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-
-    /* 화면이 클 때는 최대 1200px, 그렇지 않으면 100% */
     width: 100%;
     max-width: 1200px;
-
-    /* 상단 여백, 좌우 여백 */
-    padding: 50px 20px; 
-    
-    /* 최소 높이 설정: 컨텐츠가 적어도 한 화면 이상 차지 */
-    min-height: 100vh; 
-
-    margin: 0 auto; /* 좌우 중앙 정렬 */
+    padding: 30px 20px;
+    margin: 0 auto;
     box-sizing: border-box;
-}
+    min-height: 100vh;
+  }
 
 .title {
     font-size: 1.5rem;
     font-weight: bold;
     text-align: left;
-    width: 100%; 
+    width: 100%;
     margin-bottom: 20px;
+    margin-left: 40px;
 }
-
 
 .emailWrapper {
     display: flex;
@@ -37,7 +31,6 @@
     margin-bottom: 30px;
 }
 
-/* 각각의 email input 박스를 감싸는 컨테이너 */
 .emailInputContainer {
     display: flex;
     align-items: center;
@@ -45,7 +38,7 @@
 
     /* 고정 폭 대신, 100% 안에서 최대 726px까지만 */
     width: 100%;
-    max-width: 726px;
+    max-width: 720px;
 }
 
 /* 실제 Email Input 박스 */
@@ -112,9 +105,8 @@
     align-items: center;
     justify-content: center;
 
-    /* 고정 폭 대신, 100% 안에서 최대 726px까지만 */
     width: 100%;
-    max-width: 726px;
+    max-width: 720px;
     height: 55px;
     border-radius: 15px;
     background-color: #DFECFC;
