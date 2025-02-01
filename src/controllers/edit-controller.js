@@ -49,11 +49,9 @@ module.exports.receiveVideos = async (req, res, next) => {
 
         const videos = await videoService.readFiles(videoPaths);
 
-        const locations = (videoInfo || []).map(v => v.location || '');
-
-
+        // const locations = (videoInfo || []).map(v => v.location || '');
         
-        videoService.sendFile(emails, videos, locations, subtitle);
+        videoService.sendFile(emails, videos, subtitle);
 
         res.status(200).json({ message: '편집이 시작되었습니다!' });
 

@@ -21,7 +21,7 @@ class Video {
         return filesData;
     }
 
-    async sendFile(emails, videos, locations, subtitle) {
+    async sendFile(emails, videos, subtitle) {
         const formData = new FormData();
         formData.append('emails', JSON.stringify(emails))
         formData.append('subtitle', subtitle);
@@ -29,7 +29,6 @@ class Video {
       
         videos.forEach((video, i) => {
             formData.append('videos', video.data, { filename: video.filename });
-            formData.append('locations', locations[i] || '');
         });
 
         console.log('formData emails : ', formData._streams);
