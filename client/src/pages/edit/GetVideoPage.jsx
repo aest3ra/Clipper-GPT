@@ -17,10 +17,10 @@ export default function GetVideoPage() {
   const [subtitleChecked, setSubtitleChecked] = useState(false);
   const [swappingIndices, setSwappingIndices] = useState([]);
 
-  const MAX_TOTAL_SIZE = 2 * 1024 * 1024 * 1024;
+  // 수정된 제한: 총 업로드 용량 30GB, 영상 하나당 30분 제한
+  const MAX_TOTAL_SIZE = 30 * 1024 * 1024 * 1024; // 30GB
   const MAX_VIDEO_COUNT = 5;
-  const MAX_TOTAL_DURATION = 30 * 60;
-
+  const MAX_VIDEO_DURATION = 30 * 60; // 30분 (초)
 
   const truncateFileName = (name) => {
     // NFC 정규화를 통해 결합 문자를 올바르게 처리
@@ -41,7 +41,8 @@ export default function GetVideoPage() {
     return files.reduce((total, file) => total + file.file.size, 0);
   };
 
-  const calculateTotalDuration = async (files) => {
+  // 각 영상의 지속시간 배열을 반환하는 함수
+  const calculateVideoDurations = async (files) => {
     const durationPromises = files.map((file) =>
       new Promise((resolve) => {
         const videoElement = document.createElement("video");
@@ -52,8 +53,7 @@ export default function GetVideoPage() {
         videoElement.src = URL.createObjectURL(file.file);
       })
     );
-    const durations = await Promise.all(durationPromises);
-    return durations.reduce((total, duration) => total + duration, 0);
+    return Promise.all(durationPromises);
   };
 
   const handleFileSelect = async (event) => {
@@ -84,16 +84,19 @@ export default function GetVideoPage() {
     }
 
     const totalSize = calculateTotalSize(updatedFiles);
-    const totalDuration = await calculateTotalDuration(updatedFiles);
-
     if (totalSize > MAX_TOTAL_SIZE) {
-      alert("동영상은 총 2GB만 가능합니다.");
-    } else if (totalDuration > MAX_TOTAL_DURATION) {
-      alert("동영상은 최대 5개이고 30분을 초과할 수 없습니다.");
-    } else {
-      setUploadedFiles(updatedFiles);
-      setIsNextDisabled(false);
+      alert("동영상은 총 30GB만 가능합니다.");
+      return;
     }
+
+    const durations = await calculateVideoDurations(updatedFiles);
+    if (durations.some(duration => duration > MAX_VIDEO_DURATION)) {
+      alert("각 동영상은 30분을 초과할 수 없습니다.");
+      return;
+    }
+
+    setUploadedFiles(updatedFiles);
+    setIsNextDisabled(false);
   };
 
   const handleRemoveFile = (index) => {
@@ -162,10 +165,13 @@ export default function GetVideoPage() {
       <h2 className={styles.title}>Upload video</h2>
       <div className={styles.notice}>
         <p className={styles.noticeLine1}>
-          영상 5개 이하, 총 30분 이하 업로드 가능합니다.
+          영상은 5개 이하, 총 30GB 이하 업로드 가능합니다.
+        </p>
+        <p className={styles.noticeLine1}>
+          동영상을 시간 순서대로 나열해주세요.
         </p>
         <p className={styles.noticeLine2}>
-          영상을 시간 순서대로 업로드 해주세요.
+          각 동영상은 30분을 초과할 수 없습니다.
         </p>
       </div>
 
