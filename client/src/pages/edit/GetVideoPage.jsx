@@ -168,10 +168,10 @@ export default function GetVideoPage() {
           영상은 5개 이하, 총 30GB 이하 업로드 가능합니다.
         </p>
         <p className={styles.noticeLine1}>
-          동영상을 시간 순서대로 나열해주세요.
+        각 동영상은 30분을 초과할 수 없습니다.
         </p>
         <p className={styles.noticeLine2}>
-          각 동영상은 30분을 초과할 수 없습니다.
+          동영상을 시간 순서대로 나열해주세요.
         </p>
       </div>
 
