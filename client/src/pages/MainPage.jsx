@@ -23,7 +23,7 @@ export default function MainPage() {
 
         {/* 랜딩 페이지 */}
         <br></br>
-        <h1>나만의 인공지능 브이로그 편집자</h1>
+        <h1>인공지능 vlog 편집자</h1>
         <div className="content">
             <div className="logoImg">
                 <img src="/logo.png" alt="logo" />
