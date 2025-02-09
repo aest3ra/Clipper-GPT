@@ -23,17 +23,16 @@ export default function MainPage() {
 
         {/* 랜딩 페이지 */}
         <br></br>
-        <h1>AI 완전 자동 영상 편집기</h1>
+        <h1>나만의 인공지능 브이로그 편집자</h1>
         <div className="content">
             <div className="logoImg">
                 <img src="/logo.png" alt="logo" />
             </div>
             
             <div className="contentDesc">
-                <p>🎥 귀찮은 영상 편집은 그만!</p>
-                <p>📸 여러분은 찍기만 하세요, 편집은 CLIPPER-GPT가 해드릴게요!</p>
-                <p>💡 지금 출시 기념 무료 베타 서비스 중!</p>
-                <p>🚀 현재는 여행 영상에 한해 제공됩니다.</p>
+                <p>📸 귀찮은 영상 편집은 그만, 찍기만 하면 끝!</p>
+                <p>🎞️ 편집 걱정 없이 소중한 순간을 남기세요</p>
+                <p>🚀 편집은 Clipper-GPT가 할게요</p>
             </div>
         </div>
     {/* ---------------------------------------------------------------   */}
