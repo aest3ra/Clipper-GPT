@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
 const Video = require('../service/edit-service.js');
+const { emit } = require('process');
 
 const uploadDir = path.join(__dirname, '..', 'uploads');
 if (!fs.existsSync(uploadDir)) {
@@ -45,11 +46,7 @@ module.exports.receiveVideos = async (req, res, next) => {
 
         videoPaths = req.files.map(file => file.path);
 
-        
-
         const videos = await videoService.readFiles(videoPaths);
-
-        // const locations = (videoInfo || []).map(v => v.location || '');
         
         videoService.sendFile(emails, videos, subtitle);
 
@@ -60,6 +57,7 @@ module.exports.receiveVideos = async (req, res, next) => {
         res.status(500).json({ message: '파일 업로드 중 오류가 발생했습니다.' });
 
     } finally {
-        await videoService.deleteFile(videoPaths);
+        // await videoService.deleteFile(videoPaths);
+        console.log(emails, videoPaths)
     }
 };
