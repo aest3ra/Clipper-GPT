@@ -7,7 +7,7 @@ const router = express.Router();
 router.post("/upload", edit.uploadVideos, edit.receiveVideos);
 
 // 전설의 사패 회피법
-router.post("/wjstjf/receive", receive.receiveResultVideo);
+router.post("/wjstjf/receive", receive.receiveResultZip);
 
 // Serve test HTML directly from a GET route
 router.get("/receive", (req, res) => {
@@ -22,7 +22,7 @@ router.get("/receive", (req, res) => {
                     <h1>Video Upload Test</h1>
                     <form id="uploadForm" action="/edit/wjstjf/receive" method="POST" enctype="multipart/form-data">
                         <label for="video">Select a video to upload:</label>
-                        <input type="file" id="video" name="video" accept="video/*" required>
+                        <input type="file" id="zip" name="zip" accept="zip/*" required>
                         <button type="submit">Upload</button>
                     </form>
 
