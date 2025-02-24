@@ -21,7 +21,7 @@ export async function uploadVideos(subtitle, emailFields, uploadedFiles) {
   console.log("Subtitle:", subtitle);
   console.log("MetaData:", metaData);
 
-  const response = await fetch(baseURL + "/edit/upload", {
+  const response = await fetch("/api/edit/upload", {
     method: "POST",
     body: formData,
   });

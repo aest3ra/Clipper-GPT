@@ -3,6 +3,7 @@ const path = require("path");
 const multer = require("multer");
 
 const uploadDirectory = path.join(__dirname, "../../resultVideo");
+
 if (!fs.existsSync(uploadDirectory)) {
     fs.mkdirSync(uploadDirectory, { recursive: true });
 }
@@ -34,11 +35,25 @@ module.exports.receiveResultZip = async (req, res, next) => {
             
             res.status(200).json({
                 message: "File uploaded successfully.",
-                filePath: "https://clippergpt.com/api/edit/download/" + req.file.filename,
+                filePath: "https://clippergpt.com/api/result/download/" + req.file.filename,
             });
         } catch (error) {
             console.error("Error handling file upload:", error);
             res.status(500).json({ message: "Internal server error." });
         }
     });
+};
+
+module.exports.downloadResultFile = async (req, res, next) => {
+
+    const fileName = req.params.filename;
+    const filePath = path.join(__dirname, "../../resultVideo", fileName);
+
+    res.download(filePath, fileName, (err) => {
+        if (err) {
+            console.error("File download error:", err);
+            res.status(404).send({ message: "File not found." });
+        }
+    });
+    
 };

@@ -1,22 +1,9 @@
 const express = require("express");
-const path = require("path");
 const receive = require("../controllers/receive-controller.js");
 const router = express.Router();
 
-
 router.post("/getEditedVideo", receive.receiveResultZip);
-
-router.get("/download/:filename", (req, res) => {
-    const fileName = req.params.filename;
-    const filePath = path.join(__dirname, "../../resultVideo", fileName);
-
-    res.download(filePath, fileName, (err) => {
-        if (err) {
-            console.error("File download error:", err);
-            res.status(404).send({ message: "File not found." });
-        }
-    });
-});
+router.get("/download/:filename", receive.downloadResultFile);
 
 router.get("/receive", (req, res) => {
     res.send(`<!DOCTYPE html>
@@ -62,7 +49,6 @@ router.get("/receive", (req, res) => {
                 </body>
                 </html>`);
 });
-
 
 
 module.exports = router;
