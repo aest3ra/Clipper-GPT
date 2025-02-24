@@ -1,4 +1,4 @@
-// const baseURL = "http://127.0.0.1:8000";
+const baseURL = "http://127.0.0.1:8000";
 
 export async function uploadVideos(subtitle, emailFields, uploadedFiles) {
 
@@ -21,7 +21,7 @@ export async function uploadVideos(subtitle, emailFields, uploadedFiles) {
   console.log("Subtitle:", subtitle);
   console.log("MetaData:", metaData);
 
-  const response = await fetch("/api/edit/upload", {
+  const response = await fetch(baseURL + "/edit/upload", {
     method: "POST",
     body: formData,
   });

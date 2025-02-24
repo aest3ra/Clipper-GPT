@@ -33,17 +33,15 @@ class Video {
 
         console.log('formData emails : ', formData._streams);
 
-        try {
-            await fetch('http://34.64.57.87:8000/files', {
-                method: 'POST',
-                body: formData
-            });
-        } catch {
-            console.log("Error while sending Data to AI server")
-        }
+        // try {
+        //     await fetch('http://34.64.57.87:8000/files', {
+        //         method: 'POST',
+        //         body: formData
+        //     });
+        // } catch {
+        //     console.log("Error while sending Data to AI server")
+        // }
         
-    
-        console.log('Files sent successfully');
     }
 
     async deleteFile(videoPaths) {
